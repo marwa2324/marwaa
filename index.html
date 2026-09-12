@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> نظام إدارة المحل</title>
+<link rel="stylesheet" href="theme.css">
+    <style>
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #070b14;
+    --bg2: #0b1220;
+    --navy: #0d1728;
+    --navy-light: #111f35;
+    --card: #101a2b;
+    --card2: #0d1626;
+    --blue: #1683ff;
+    --blue-light: #36a3ff;
+    --blue-dark: #075fc2;
+    --white: #f5f8ff;
+    --text: #e7edf7;
+    --muted: #8d9bb0;
+    --border: rgba(90, 140, 200, .16);
+    --danger: #ff4d5e;
+    --shadow: 0 12px 35px rgba(0, 0, 0, .35);
+    --glow: 0 0 25px rgba(22, 131, 255, .18);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Tahoma, sans-serif;
+    background:
+        radial-gradient(
+            circle at 80% 0%,
+            rgba(22, 131, 255, .10),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 10% 100%,
+            rgba(0, 91, 180, .08),
+            transparent 30%
+        ),
+        var(--bg);
+
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    background:
+        linear-gradient(
+            135deg,
+            #080d17,
+            #0d1728
+        );
+
+    color: var(--white);
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 25px;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    border-bottom: 1px solid rgba(50, 130, 220, .18);
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, .45);
+
+    backdrop-filter: blur(12px);
+}
+
+
+/* خط إضاءة أسفل الهيدر */
+
+header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(22, 131, 255, .7),
+            transparent
+        );
+}
+
+
+/* اسم النظام */
+
+.logo {
+    color: #ffffff;
+    font-size: 25px;
+    font-weight: bold;
+
+    text-shadow:
+        0 0 15px rgba(22, 131, 255, .45);
+}
+
+
+/* زر الموبايل */
+
+.menu-btn {
+    display: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--blue-dark)
+        );
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,.1);
+
+    padding: 10px 14px;
+
+    border-radius: 10px;
+
+    font-size: 20px;
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 20px rgba(22, 131, 255, .25);
+
+    transition: .25s;
+}
+
+.menu-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 25px rgba(22, 131, 255, .4);
+}
+
+
+/* =========================
+   USER AREA
+========================= */
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+
+    color: var(--text);
+    font-size: 14px;
+}
+
+.user-area span {
+    background: rgba(255,255,255,.035);
+
+    border: 1px solid var(--border);
+
+    padding: 7px 11px;
+
+    border-radius: 9px;
+
+    box-shadow:
+        inset 0 0 15px rgba(255,255,255,.015);
+}
+
+
+/* زر تسجيل الخروج */
+
+.logout-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #147fff,
+            #075fc2
+        );
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    padding: 9px 15px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 5px 18px rgba(22, 131, 255, .25);
+
+    transition: .25s;
+}
+
+.logout-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(22, 131, 255, .45);
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 70px);
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+aside {
+    width: 240px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #080e19,
+            #0b1423
+        );
+
+    color: white;
+
+    padding: 20px 12px;
+
+    border-left: 1px solid rgba(60, 130, 200, .10);
+
+    box-shadow:
+        10px 0 35px rgba(0,0,0,.22);
+
+    position: relative;
+}
+
+
+/* إضاءة جانبية */
+
+aside::before {
+    content: "";
+
+    position: absolute;
+
+    top: 80px;
+    right: 0;
+
+    width: 2px;
+    height: 180px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(22,131,255,.8),
+            transparent
+        );
+
+    filter:
+        drop-shadow(
+            0 0 8px rgba(22,131,255,.7)
+        );
+}
+
+
+/* عنوان القائمة */
+
+.menu-title {
+    color: #6f8098;
+
+    padding: 10px;
+
+    margin-bottom: 8px;
+
+    font-size: 13px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .4px;
+}
+
+
+/* عناصر القائمة */
+
+.menu-item {
+    display: block;
+
+    color: #cbd6e6;
+
+    text-decoration: none;
+
+    padding: 13px;
+
+    margin-bottom: 6px;
+
+    border-radius: 10px;
+
+    border: 1px solid transparent;
+
+    transition:
+        background .25s,
+        color .25s,
+        transform .25s,
+        box-shadow .25s;
+
+    position: relative;
+}
+
+
+/* خط صغير */
+
+.menu-item::before {
+    content: "";
+
+    position: absolute;
+
+    right: 0;
+    top: 50%;
+
+    width: 0;
+    height: 60%;
+
+    transform:
+        translateY(-50%);
+
+    background: var(--blue);
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 0 10px rgba(22,131,255,.8);
+
+    transition: .25s;
+}
+
+
+.menu-item:hover {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(22,131,255,.12),
+            rgba(22,131,255,.03)
+        );
+
+    color: #ffffff;
+
+    border-color:
+        rgba(22,131,255,.20);
+
+    transform:
+        translateX(-3px);
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.18);
+}
+
+
+.menu-item:hover::before {
+    width: 3px;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    flex: 1;
+
+    padding: 28px;
+
+    max-width: 1400px;
+
+    width: 100%;
+
+    background:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(22,131,255,.045),
+            transparent 30%
+        );
+}
+
+
+/* =========================
+   WELCOME
+========================= */
+
+.welcome {
+    background:
+        linear-gradient(
+            135deg,
+            #0e1b30,
+            #091321
+        );
+
+    color: white;
+
+    border-radius: 18px;
+
+    padding: 28px;
+
+    margin-bottom: 25px;
+
+    border: 1px solid rgba(60,140,220,.18);
+
+    box-shadow:
+        var(--shadow),
+        var(--glow);
+
+    position: relative;
+
+    overflow: hidden;
+
+    animation:
+        fadeUp .55s ease;
+}
+
+
+/* تأثير إضاءة */
+
+.welcome::before {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    left: -80px;
+    top: -130px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(22,131,255,.20),
+            transparent 65%
+        );
+
+    pointer-events: none;
+}
+
+
+.welcome::after {
+    content: "";
+
+    position: absolute;
+
+    right: 0;
+    bottom: 0;
+
+    width: 180px;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--blue),
+            transparent
+        );
+
+    box-shadow:
+        0 0 12px rgba(22,131,255,.7);
+}
+
+
+.welcome h1 {
+    color: #ffffff;
+
+    margin-bottom: 8px;
+
+    font-size: 28px;
+
+    text-shadow:
+        0 0 20px rgba(22,131,255,.2);
+}
+
+
+.welcome p {
+    color: #8fa1b8;
+}
+
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(210px, 1fr)
+        );
+
+    gap: 18px;
+}
+
+
+.card {
+    background:
+        linear-gradient(
+            145deg,
+            #101b2d,
+            #0b1422
+        );
+
+    border-radius: 16px;
+
+    padding: 22px;
+
+    border: 1px solid var(--border);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.28);
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform .3s,
+        border-color .3s,
+        box-shadow .3s;
+
+    animation:
+        fadeUp .6s ease both;
+}
+
+
+/* تأخير بسيط للكروت */
+
+.card:nth-child(2) {
+    animation-delay: .05s;
+}
+
+.card:nth-child(3) {
+    animation-delay: .10s;
+}
+
+.card:nth-child(4) {
+    animation-delay: .15s;
+}
+
+.card:nth-child(5) {
+    animation-delay: .20s;
+}
+
+.card:nth-child(6) {
+    animation-delay: .25s;
+}
+
+
+/* شريط الإضاءة */
+
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(22,131,255,.75),
+            transparent
+        );
+
+    opacity: .6;
+}
+
+
+.card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    left: -50px;
+    bottom: -50px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(22,131,255,.08),
+            transparent 70%
+        );
+}
+
+
+.card:hover {
+    transform:
+        translateY(-6px);
+
+    border-color:
+        rgba(22,131,255,.38);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.4),
+        0 0 25px rgba(22,131,255,.10);
+}
+
+
+.card-title {
+    color: #8999ae;
+
+    margin-bottom: 12px;
+
+    font-size: 14px;
+}
+
+
+.number {
+    color: #35a2ff;
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 15px rgba(22,131,255,.3);
+}
+
+
+.danger {
+    color: var(--danger);
+
+    text-shadow:
+        0 0 15px rgba(255,77,94,.25);
+}
+
+
+/* =========================
+   QUICK ACTIONS
+========================= */
+
+.quick {
+    margin-top: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #101a2b,
+            #0b1422
+        );
+
+    padding: 22px;
+
+    border-radius: 16px;
+
+    border: 1px solid var(--border);
+
+    box-shadow:
+        var(--shadow);
+
+    animation:
+        fadeUp .7s ease;
+}
+
+
+.quick h2 {
+    margin-bottom: 18px;
+
+    color: #f3f7ff;
+
+    font-size: 20px;
+}
+
+
+.quick-buttons {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(180px, 1fr)
+        );
+
+    gap: 12px;
+}
+
+
+.quick-btn {
+    text-decoration: none;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111e31,
+            #0c1625
+        );
+
+    color: #cbd6e6;
+
+    padding: 18px;
+
+    border-radius: 11px;
+
+    text-align: center;
+
+    font-weight: bold;
+
+    border: 1px solid var(--border);
+
+    transition:
+        .25s;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.quick-btn::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: -100%;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(22,131,255,.10),
+            transparent
+        );
+
+    transition: .5s;
+}
+
+
+.quick-btn:hover::before {
+    right: 100%;
+}
+
+
+.quick-btn:hover {
+    color: white;
+
+    border-color:
+        rgba(22,131,255,.45);
+
+    background:
+        linear-gradient(
+            145deg,
+            #12233d,
+            #0d192b
+        );
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.3),
+        0 0 18px rgba(22,131,255,.10);
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 800px) {
+
+    .menu-btn {
+        display: block;
+    }
+
+
+    header {
+        padding: 0 15px;
+
+        gap: 10px;
+    }
+
+
+    header > div:last-child {
+        font-size: 14px;
+    }
+
+
+    .user-area {
+        gap: 6px;
+
+        font-size: 11px;
+    }
+
+
+    .user-area span {
+        padding: 6px 8px;
+    }
+
+
+    .logout-btn {
+        padding: 7px 9px;
+
+        font-size: 12px;
+    }
+
+
+    aside {
+        position: fixed;
+
+        right: -250px;
+
+        top: 70px;
+
+        height:
+            calc(100vh - 70px);
+
+        transition:
+            right .35s ease;
+
+        z-index: 200;
+
+        box-shadow:
+            -15px 0 35px rgba(0,0,0,.5);
+    }
+
+
+    aside.open {
+        right: 0;
+    }
+
+
+    .layout {
+        display: block;
+    }
+
+
+    main {
+        padding: 15px;
+    }
+
+
+    .welcome {
+        padding: 22px;
+    }
+
+
+    .welcome h1 {
+        font-size: 23px;
+    }
+
+
+    .cards {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 12px;
+    }
+
+
+    .card {
+        padding: 17px;
+    }
+
+
+    .number {
+        font-size: 27px;
+    }
+
+
+    .quick-buttons {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media(max-width: 500px) {
+
+    header {
+        height: 65px;
+    }
+
+
+    aside {
+        top: 65px;
+
+        height:
+            calc(100vh - 65px);
+    }
+
+
+    .logo {
+        font-size: 20px;
+    }
+
+
+    .user-area span:first-child {
+        max-width: 100px;
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+    }
+
+
+    header > div:last-child {
+        display: none;
+    }
+
+
+    .cards {
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .quick-buttons {
+        grid-template-columns: 1fr;
+    }
+
+
+    .welcome {
+        border-radius: 14px;
+    }
+
+}
+
+
+    </style>
+</head>
+
+<body>
+
+<header>
+<div class="user-area">
+    <span id="currentUserName">المستخدم</span>
+    <span id="currentUserRole"></span>
+
+    <button onclick="logout()" class="logout-btn">
+        🚪 خروج
+    </button>
+</div>
+    <div class="logo">
+        
+    </div>
+
+    <button
+        class="menu-btn"
+        onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <div>
+        نظام إدارة المحل
+    </div>
+
+</header>
+
+
+<div class="layout">
+
+    <!-- القائمة -->
+
+    <aside id="sidebar">
+
+        <div class="menu-title">
+            القائمة الرئيسية
+        </div>
+
+        <a class="menu-item" href="index.html">
+            🏠 الرئيسية
+        </a>
+
+        <a class="menu-item" href="sales.html">
+            🛒 المبيعات
+        </a>
+
+        <a class="menu-item" href="purchases.html">
+            📦 المشتريات
+        </a>
+<a class="menu-item" href="invoices.html">
+    🧾 الفواتير
+</a>
+        <a class="menu-item" href="inventory.html">
+            📊 المخزون
+        </a>
+
+        <a class="menu-item" href="customers.html">
+            👥 العملاء
+        </a>
+
+        <a class="menu-item" href="suppliers.html">
+            🏪 الموردين
+        </a>
+
+        <a class="menu-item" href="reports.html">
+            📈 التقارير
+        </a>
+
+        <a class="menu-item" href="products.html">
+            🧃 المنتجات
+        </a>
+        <a
+    class="menu-item"
+    href="users.html"
+    id="usersLink">
+    👥 المستخدمين
+</a>
+
+    </aside>
+
+
+    <!-- المحتوى -->
+
+    <main>
+
+        <section class="welcome">
+
+            <h1>
+                أهلاً بك 👋 
+            </h1>
+
+            <p>
+                نظام إدارة  الشركة
+            </p>
+
+        </section>
+
+
+        <!-- الإحصائيات -->
+
+        <section class="cards">
+
+            <div class="card">
+
+                <div class="card-title">
+                    📦 المنتجات
+                </div>
+
+                <div
+                    class="number"
+                    id="productsCount">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    👥 العملاء
+                </div>
+
+                <div
+                    class="number"
+                    id="customersCount">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    🏪 الموردين
+                </div>
+
+                <div
+                    class="number"
+                    id="suppliersCount">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    ⚠️ مخزون منخفض
+                </div>
+
+                <div
+                    class="number danger"
+                    id="lowStockCount">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    🛒 فواتير البيع
+                </div>
+
+                <div
+                    class="number"
+                    id="salesCount">
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-title">
+                    📦 فواتير الشراء
+                </div>
+
+                <div
+                    class="number"
+                    id="purchasesCount">
+                    0
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- الاختصارات -->
+
+        <section class="quick">
+
+            <h2>
+                ⚡ وصول سريع
+            </h2>
+
+            <div class="quick-buttons">
+
+                <a
+                    href="sales.html"
+                    class="quick-btn">
+                    🛒 فاتورة بيع
+                </a>
+
+                <a
+                    href="purchases.html"
+                    class="quick-btn">
+                    📦 فاتورة شراء
+                </a>
+
+                <a
+                    href="customers.html"
+                    class="quick-btn">
+                    👤 إضافة عميل
+                </a>
+
+                <a
+                    href="suppliers.html"
+                    class="quick-btn">
+                    🏪 إضافة مورد
+                </a>
+<a href="invoices.html" class="quick-btn">
+    🧾 مراجعة الفواتير
+</a>
+                <a
+                    href="inventory.html"
+                    class="quick-btn">
+                    📊 متابعة المخزون
+                </a>
+
+                <a href="reports.html" id="reportsLink" class="quick-btn">
+    📊 التقارير
+</a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script>
+
+const API = "http://localhost:3000/api";
+
+const token = localStorage.getItem("token");
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem("user")
+    );
+
+
+/* حماية الصفحة */
+
+if (!token || !currentUser) {
+
+    window.location.href = "login.html";
+
+}
+
+
+/* بيانات المستخدم */
+
+if (currentUser) {
+
+    document.getElementById("currentUserName")
+        .textContent =
+        "👤 " + currentUser.name;
+
+    let roleText = "";
+
+    if (currentUser.role === "admin") {
+
+        roleText = "👑 مدير النظام";
+
+    } else if (currentUser.role === "manager") {
+
+        roleText = "⭐ مدير";
+
+    } else {
+
+        roleText = "👨‍💼 موظف";
+
+    }
+
+    document.getElementById("currentUserRole")
+        .textContent = roleText;
+
+}
+
+
+/* الاتصال بالـAPI مع Token */
+
+async function apiFetch(url, options = {}) {
+
+    const currentToken =
+        localStorage.getItem("token");
+
+    if (!currentToken) {
+
+        window.location.href = "login.html";
+
+        return;
+    }
+
+    options.headers = {
+
+        ...(options.headers || {}),
+
+        "Authorization":
+            `Bearer ${currentToken}`
+
+    };
+
+    const response =
+        await fetch(url, options);
+
+    if (response.status === 401) {
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        window.location.href =
+            "login.html";
+
+        return;
+    }
+
+    return response;
+}
+
+
+/* تسجيل الخروج */
+
+function logout() {
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    window.location.href =
+        "login.html";
+}
+
+
+/* الصلاحيات */
+
+function applyPermissions() {
+
+    if (!currentUser) return;
+
+    const role =
+        currentUser.role;
+
+    const reportsLink =
+        document.getElementById("reportsLink");
+
+    const usersLink =
+        document.getElementById("usersLink");
+
+
+    if (role === "employee") {
+
+        if (reportsLink) {
+
+            reportsLink.style.display =
+                "none";
+
+        }
+
+        if (usersLink) {
+
+            usersLink.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    if (role === "manager") {
+
+        if (usersLink) {
+
+            usersLink.style.display =
+                "none";
+
+        }
+
+    }
+
+}
+
+
+/* تحميل إحصائيات لوحة التحكم */
+
+async function loadDashboard() {
+
+    try {
+
+        const response =
+            await apiFetch(
+                `${API}/dashboard/summary`
+            );
+
+        if (!response) return;
+
+        const data =
+            await response.json();
+
+        const d =
+            data.summary || data;
+
+
+        document.getElementById(
+            "productsCount"
+        ).textContent =
+            d.products_count || 0;
+
+
+        document.getElementById(
+            "customersCount"
+        ).textContent =
+            d.customers_count || 0;
+
+
+        document.getElementById(
+            "suppliersCount"
+        ).textContent =
+            d.suppliers_count || 0;
+
+
+        document.getElementById(
+            "lowStockCount"
+        ).textContent =
+            d.low_stock_count || 0;
+
+
+        document.getElementById(
+            "salesCount"
+        ).textContent =
+            d.sales_invoices_count || 0;
+
+
+        document.getElementById(
+            "purchasesCount"
+        ).textContent =
+            d.purchase_invoices_count || 0;
+
+
+    } catch (error) {
+
+        console.error(
+            "Dashboard error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* القائمة في الموبايل */
+
+function toggleMenu() {
+
+    document
+        .getElementById("sidebar")
+        .classList.toggle("open");
+
+}
+
+
+/* تشغيل الصفحة */
+
+applyPermissions();
+
+loadDashboard();
+
+</script>
+
+</body>
+</html>

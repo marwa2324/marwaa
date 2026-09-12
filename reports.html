@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> التقارير</title>
+<link rel="stylesheet" href="theme.css">
+    <style>
+       * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #060a12;
+    --bg-secondary: #0a1220;
+
+    --navy: #0d1728;
+    --navy-light: #14243d;
+
+    --card: #0e192b;
+    --card-light: #111f34;
+
+    --blue: #1683ff;
+    --blue-light: #43a7ff;
+    --blue-dark: #075fc2;
+
+    --white: #f5f8ff;
+    --text: #e5edf8;
+    --muted: #8e9caf;
+
+    --border: rgba(91, 145, 210, .18);
+    --border-blue: rgba(22, 131, 255, .35);
+
+    --green: #22c77a;
+    --red: #ff5264;
+    --yellow: #ffc247;
+
+    --shadow: 0 18px 50px rgba(0, 0, 0, .38);
+    --glow: 0 0 30px rgba(22, 131, 255, .14);
+}
+
+/* =========================
+   BODY
+========================= */
+
+body {
+    font-family: Arial, "Segoe UI", sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 8% 0%,
+            rgba(22, 131, 255, .08),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 92% 100%,
+            rgba(22, 131, 255, .06),
+            transparent 30%
+        ),
+        var(--bg);
+
+    color: var(--text);
+
+    min-height: 100vh;
+
+    direction: rtl;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    position: relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #070c16,
+            #0d1728 55%,
+            #101f36
+        );
+
+    color: var(--white);
+
+    padding: 18px 28px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid var(--border-blue);
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, .35),
+        0 0 25px rgba(22, 131, 255, .07);
+
+    overflow: hidden;
+}
+
+header::after {
+    content: "";
+
+    position: absolute;
+
+    left: -10%;
+    right: -10%;
+    bottom: 0;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--blue),
+            var(--blue-light),
+            var(--blue),
+            transparent
+        );
+
+    opacity: .7;
+
+    animation: headerGlow 4s ease-in-out infinite;
+}
+
+@keyframes headerGlow {
+
+    0%, 100% {
+        opacity: .35;
+    }
+
+    50% {
+        opacity: .95;
+    }
+}
+
+.logo {
+    color: var(--blue-light);
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 14px rgba(67, 167, 255, .35);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    max-width: 1400px;
+
+    margin: auto;
+
+    padding: 28px 22px 45px;
+}
+
+main > h2 {
+    color: var(--white);
+
+    font-size: 24px;
+
+    margin-bottom: 18px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+}
+
+/* =========================
+   REFRESH
+========================= */
+
+.refresh {
+    position: relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--blue-dark)
+        );
+
+    color: white;
+
+    border: 0;
+
+    padding: 12px 20px;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    margin-bottom: 22px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 8px 22px rgba(22, 131, 255, .2);
+
+    transition:
+        transform .2s ease,
+        box-shadow .25s ease;
+}
+
+.refresh::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 80%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.22),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: left .6s ease;
+}
+
+.refresh:hover::before {
+    left: 130%;
+}
+
+.refresh:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 28px rgba(22, 131, 255, .32),
+        0 0 20px rgba(22, 131, 255, .12);
+}
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px, 1fr)
+        );
+
+    gap: 18px;
+
+    margin-bottom: 28px;
+}
+
+.card {
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 31, 52, .96),
+            rgba(9, 17, 30, .98)
+        );
+
+    padding: 21px;
+
+    border-radius: 17px;
+
+    border: 1px solid var(--border);
+
+    box-shadow: var(--shadow);
+
+    overflow: hidden;
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+
+    animation: cardAppear .5s ease both;
+}
+
+.card:nth-child(2) {
+    animation-delay: .04s;
+}
+
+.card:nth-child(3) {
+    animation-delay: .08s;
+}
+
+.card:nth-child(4) {
+    animation-delay: .12s;
+}
+
+.card:nth-child(5) {
+    animation-delay: .16s;
+}
+
+.card:nth-child(6) {
+    animation-delay: .20s;
+}
+
+.card:nth-child(7) {
+    animation-delay: .24s;
+}
+
+.card:nth-child(8) {
+    animation-delay: .28s;
+}
+
+@keyframes cardAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--blue),
+            transparent
+        );
+
+    opacity: .65;
+}
+
+.card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    top: -70px;
+    left: -60px;
+
+    background:
+        rgba(22, 131, 255, .07);
+
+    border-radius: 50%;
+
+    filter: blur(20px);
+
+    pointer-events: none;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+
+    border-color:
+        rgba(67, 167, 255, .35);
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, .42),
+        0 0 25px rgba(22, 131, 255, .09);
+}
+
+/* =========================
+   CARD TITLE
+========================= */
+
+.card-title {
+    color: var(--muted);
+
+    margin-bottom: 12px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    position: relative;
+
+    z-index: 1;
+}
+
+/* =========================
+   CARD NUMBER
+========================= */
+
+.number {
+    font-size: 28px;
+
+    font-weight: bold;
+
+    color: var(--blue-light);
+
+    position: relative;
+
+    z-index: 1;
+
+    text-shadow:
+        0 0 15px rgba(67, 167, 255, .15);
+}
+
+/* =========================
+   SUCCESS
+========================= */
+
+.number.success {
+    color: var(--green);
+
+    text-shadow:
+        0 0 15px rgba(34, 199, 122, .15);
+}
+
+/* =========================
+   DANGER
+========================= */
+
+.number.danger {
+    color: var(--red);
+
+    text-shadow:
+        0 0 15px rgba(255, 82, 100, .15);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 31, 52, .96),
+            rgba(9, 17, 30, .98)
+        );
+
+    padding: 21px;
+
+    border-radius: 17px;
+
+    margin-bottom: 22px;
+
+    border: 1px solid var(--border);
+
+    box-shadow: var(--shadow);
+
+    overflow: hidden;
+
+    animation: sectionAppear .55s ease both;
+}
+
+.section::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--blue),
+            transparent
+        );
+
+    opacity: .65;
+}
+
+@keyframes sectionAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section h2 {
+    color: var(--white);
+
+    font-size: 19px;
+
+    margin-bottom: 17px;
+
+    padding-bottom: 13px;
+
+    border-bottom:
+        1px solid var(--border);
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.section > div {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-radius: 12px;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        var(--blue-dark)
+        #0a1220;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 650px;
+
+    color: var(--text);
+}
+
+th,
+td {
+    padding: 13px;
+
+    border-bottom:
+        1px solid rgba(91, 145, 210, .1);
+
+    text-align: right;
+
+    white-space: nowrap;
+}
+
+th {
+    background:
+        linear-gradient(
+            135deg,
+            #0b1424,
+            #13243d
+        );
+
+    color: #dceaff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    border-bottom:
+        1px solid rgba(22, 131, 255, .3);
+}
+
+td {
+    color: #c7d2e2;
+
+    font-size: 13px;
+}
+
+tbody tr {
+    transition:
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+tbody tr:hover {
+    background:
+        rgba(22, 131, 255, .055);
+
+    box-shadow:
+        inset 3px 0 0 rgba(22, 131, 255, .6);
+}
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+/* =========================
+   DANGER / SUCCESS TABLE
+========================= */
+
+td.danger {
+    color: var(--red);
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 9px rgba(255, 82, 100, .12);
+}
+
+td.success {
+    color: var(--green);
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 9px rgba(34, 199, 122, .12);
+}
+
+/* =========================
+   PAYMENT STATUS
+========================= */
+
+td:last-child {
+    font-weight: 600;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty {
+    text-align: center;
+
+    padding: 38px 20px;
+
+    color: var(--muted);
+
+    background:
+        rgba(6, 13, 23, .5);
+
+    border:
+        1px dashed rgba(91, 145, 210, .18);
+
+    border-radius: 12px;
+
+    animation: emptyAppear .4s ease;
+}
+
+.empty.success {
+    color: var(--green);
+
+    border-color:
+        rgba(34, 199, 122, .18);
+
+    background:
+        rgba(34, 199, 122, .045);
+}
+
+@keyframes emptyAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #080e18;
+}
+
+::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            180deg,
+            var(--blue),
+            var(--blue-dark)
+        );
+
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--blue-light);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 900px) {
+
+    main {
+        padding: 22px 16px 35px;
+    }
+
+    .cards {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
+}
+
+@media(max-width: 700px) {
+
+    header {
+        padding: 16px 20px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    header > div:last-child {
+        font-size: 14px;
+    }
+
+    main {
+        padding: 17px 10px 30px;
+    }
+
+    main > h2 {
+        font-size: 20px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+
+        gap: 13px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .number {
+        font-size: 25px;
+    }
+
+    .section {
+        padding: 17px 13px;
+
+        border-radius: 14px;
+    }
+
+    .section h2 {
+        font-size: 17px;
+    }
+
+    th,
+    td {
+        padding: 10px 9px;
+    }
+}
+
+@media(max-width: 400px) {
+
+    header {
+        padding: 14px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    header > div:last-child {
+        font-size: 13px;
+    }
+
+    main > h2 {
+        font-size: 18px;
+    }
+
+    .refresh {
+        width: 100%;
+
+        padding: 12px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .number {
+        font-size: 23px;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        
+    </div>
+
+    <div>
+        📊 التقارير
+    </div>
+
+</header>
+
+
+<main>
+
+    <h2>📊 لوحة التقارير</h2>
+
+    <button
+        class="refresh"
+        onclick="loadReports()">
+
+        🔄 تحديث التقارير
+
+    </button>
+
+
+    <!-- الكروت -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="card-title">
+                🧾 عدد فواتير البيع
+            </div>
+
+            <div
+                class="number"
+                id="salesInvoices">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                💰 إجمالي المبيعات
+            </div>
+
+            <div
+                class="number"
+                id="totalSales">
+                0
+            </div>
+
+            جنيه
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                💵 المدفوع من العملاء
+            </div>
+
+            <div
+                class="number"
+                id="paidSales">
+                0
+            </div>
+
+            جنيه
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                📋 المتبقي على العملاء
+            </div>
+
+            <div
+                class="number danger"
+                id="customerRemaining">
+                0
+            </div>
+
+            جنيه
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                📦 إجمالي المشتريات
+            </div>
+
+            <div
+                class="number"
+                id="totalPurchases">
+                0
+            </div>
+
+            جنيه
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                💸 أرباح المبيعات
+            </div>
+
+            <div
+                class="number success"
+                id="profit">
+                0
+            </div>
+
+            جنيه
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                🏪 المتبقي للموردين
+            </div>
+
+            <div
+                class="number danger"
+                id="supplierRemaining">
+                0
+            </div>
+
+            جنيه
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                ⚠️ منتجات المخزون المنخفض
+            </div>
+
+            <div
+                class="number danger"
+                id="lowStock">
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- المخزون المنخفض -->
+
+    <section class="section">
+
+        <h2>
+            ⚠️ المنتجات التي تحتاج شراء
+        </h2>
+
+        <div id="lowStockTable">
+
+            <div class="empty">
+                جاري التحميل...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- آخر فواتير البيع -->
+
+    <section class="section">
+
+        <h2>
+            🛒 آخر فواتير البيع
+        </h2>
+
+        <div id="salesTable">
+
+            <div class="empty">
+                جاري التحميل...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- آخر فواتير الشراء -->
+
+    <section class="section">
+
+        <h2>
+            📦 آخر فواتير الشراء
+        </h2>
+
+        <div id="purchasesTable">
+
+            <div class="empty">
+                جاري التحميل...
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+const API = "http://localhost:3000/api";
+
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "login.html";
+}
+
+async function apiFetch(url, options = {}) {
+
+    const currentToken =
+        localStorage.getItem("token");
+
+    if (!currentToken) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    options.headers = {
+        ...(options.headers || {}),
+        "Authorization":
+            `Bearer ${currentToken}`
+    };
+
+    const response =
+        await fetch(url, options);
+
+    if (response.status === 401) {
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        window.location.href = "login.html";
+
+        return;
+    }
+
+    return response;
+}
+/* تحميل كل التقارير */
+
+async function loadReports() {
+
+    try {
+
+        await Promise.all([
+
+            loadDashboard(),
+
+            loadSales(),
+
+            loadPurchases(),
+
+            loadLowStock()
+
+        ]);
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* Dashboard */
+
+async function loadDashboard() {
+
+    const response =
+        await apiFetch(`${API}/dashboard`);
+
+    const data =
+        await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message);
+    }
+
+    const d = data.dashboard || data;
+
+    document.getElementById("salesInvoices")
+        .textContent =
+        Number(d.sales_invoices_count || 0);
+
+    document.getElementById("totalSales")
+        .textContent =
+        formatMoney(d.total_sales);
+
+    document.getElementById("paidSales")
+        .textContent =
+        formatMoney(d.total_paid);
+
+    document.getElementById("customerRemaining")
+        .textContent =
+        formatMoney(d.customer_debt);
+
+    document.getElementById("totalPurchases")
+        .textContent =
+        formatMoney(d.total_purchases);
+
+    document.getElementById("profit")
+        .textContent =
+        formatMoney(d.total_profit);
+
+    document.getElementById("supplierRemaining")
+        .textContent =
+        formatMoney(d.supplier_debt);
+
+    document.getElementById("lowStock")
+        .textContent =
+        Number(d.low_stock_count || 0);
+}
+
+
+/* المبيعات */
+
+async function loadSales() {
+
+    const response =
+        await apiFetch(`${API}/sales-invoices`);
+
+    const data =
+        await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message);
+    }
+
+    const invoices =
+        data.invoices || [];
+
+    const container =
+        document.getElementById("salesTable");
+
+    if (!invoices.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                لا توجد فواتير بيع
+            </div>`;
+
+        return;
+    }
+
+    container.innerHTML = `
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>رقم الفاتورة</th>
+                    <th>العميل</th>
+                    <th>الإجمالي</th>
+                    <th>المدفوع</th>
+                    <th>المتبقي</th>
+                    <th>الحالة</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${invoices.slice(0, 20).map(invoice => `
+
+                    <tr>
+
+                        <td>
+                            ${escapeHtml(
+                                invoice.invoice_number
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                invoice.customer_name ||
+                                "عميل نقدي"
+                            )}
+                        </td>
+
+                        <td>
+                            ${formatMoney(invoice.total)}
+                        </td>
+
+                        <td>
+                            ${formatMoney(
+                                invoice.paid_amount
+                            )}
+                        </td>
+
+                        <td class="danger">
+                            ${formatMoney(
+                                invoice.remaining_amount
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                invoice.payment_status || ""
+                            )}
+                        </td>
+
+                    </tr>
+
+                `).join("")}
+
+            </tbody>
+
+        </table>
+    `;
+}
+
+
+/* المشتريات */
+
+async function loadPurchases() {
+
+    const response =
+        await apiFetch(`${API}/purchase-invoices`);
+
+    const data =
+        await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message);
+    }
+
+    const invoices =
+        data.invoices || [];
+
+    const container =
+        document.getElementById("purchasesTable");
+
+    if (!invoices.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                لا توجد فواتير شراء
+            </div>`;
+
+        return;
+    }
+
+    container.innerHTML = `
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>رقم الفاتورة</th>
+                    <th>المورد</th>
+                    <th>الإجمالي</th>
+                    <th>المدفوع</th>
+                    <th>المتبقي</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${invoices.slice(0, 20).map(invoice => `
+
+                    <tr>
+
+                        <td>
+                            ${escapeHtml(
+                                invoice.invoice_number
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHtml(
+                                invoice.supplier_name ||
+                                "بدون مورد"
+                            )}
+                        </td>
+
+                        <td>
+                            ${formatMoney(invoice.total)}
+                        </td>
+
+                        <td>
+                            ${formatMoney(
+                                invoice.paid_amount
+                            )}
+                        </td>
+
+                        <td class="danger">
+                            ${formatMoney(
+                                invoice.remaining_amount
+                            )}
+                        </td>
+
+                    </tr>
+
+                `).join("")}
+
+            </tbody>
+
+        </table>
+    `;
+}
+
+
+/* المخزون المنخفض */
+
+async function loadLowStock() {
+
+    const response =
+        await apiFetch(`${API}/inventory/low-stock`);
+
+    const data =
+        await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.message);
+    }
+
+    const products =
+        data.products || [];
+
+    const container =
+        document.getElementById("lowStockTable");
+
+    if (!products.length) {
+
+        container.innerHTML =
+            `<div class="empty success">
+                ✅ المخزون جيد ولا توجد منتجات ناقصة
+            </div>`;
+
+        return;
+    }
+
+    container.innerHTML = `
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>المنتج</th>
+                    <th>المخزون الحالي</th>
+                    <th>الحد الأدنى</th>
+                    <th>الحالة</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${products.map(product => `
+
+                    <tr>
+
+                        <td>
+                            ${escapeHtml(product.name)}
+                        </td>
+
+                        <td class="danger">
+                            ${product.current_stock}
+                        </td>
+
+                        <td>
+                            ${product.minimum_stock}
+                        </td>
+
+                        <td class="danger">
+                            يحتاج شراء
+                        </td>
+
+                    </tr>
+
+                `).join("")}
+
+            </tbody>
+
+        </table>
+    `;
+}
+
+
+/* تنسيق الأموال */
+
+function formatMoney(value) {
+
+    return Number(value || 0)
+        .toLocaleString("ar-EG", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+}
+
+
+/* حماية النص */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+
+loadReports();
+
+</script>
+
+</body>
+</html>

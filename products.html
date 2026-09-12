@@ -1,0 +1,1645 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> المنتجات</title>
+<link rel="stylesheet" href="theme.css">
+    <style>
+       * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #060a12;
+    --bg-secondary: #0a1220;
+    --navy: #0d1728;
+    --navy-light: #14243d;
+
+    --card: #0e192b;
+    --card-light: #111f34;
+
+    --blue: #1683ff;
+    --blue-light: #43a7ff;
+    --blue-dark: #075fc2;
+
+    --white: #f5f8ff;
+    --text: #e5edf8;
+    --muted: #8e9caf;
+
+    --border: rgba(91, 145, 210, .18);
+    --border-blue: rgba(22, 131, 255, .35);
+
+    --green: #22c77a;
+    --red: #ff5264;
+    --yellow: #ffc247;
+
+    --shadow: 0 18px 50px rgba(0, 0, 0, .38);
+    --glow: 0 0 30px rgba(22, 131, 255, .14);
+}
+
+/* =========================
+   BODY
+========================= */
+
+body {
+    font-family: Arial, "Segoe UI", sans-serif;
+    background:
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(22, 131, 255, .08),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 100%,
+            rgba(22, 131, 255, .06),
+            transparent 30%
+        ),
+        var(--bg);
+
+    color: var(--text);
+    min-height: 100vh;
+    direction: rtl;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    position: relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #070c16,
+            #0d1728 55%,
+            #101f36
+        );
+
+    color: var(--white);
+
+    padding: 18px 28px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid var(--border-blue);
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, .35),
+        0 0 25px rgba(22, 131, 255, .07);
+
+    overflow: hidden;
+}
+
+header::after {
+    content: "";
+
+    position: absolute;
+
+    left: -10%;
+    right: -10%;
+    bottom: -1px;
+
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--blue),
+        var(--blue-light),
+        var(--blue),
+        transparent
+    );
+
+    opacity: .7;
+
+    animation: headerGlow 4s ease-in-out infinite;
+}
+
+@keyframes headerGlow {
+    0%, 100% {
+        opacity: .35;
+    }
+
+    50% {
+        opacity: .9;
+    }
+}
+
+.logo {
+    color: var(--blue-light);
+
+    font-size: 24px;
+    font-weight: bold;
+
+    text-shadow:
+        0 0 12px rgba(67, 167, 255, .35);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    max-width: 1500px;
+
+    margin: auto;
+
+    padding: 28px 22px 45px;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.layout {
+    display: grid;
+
+    grid-template-columns: 350px 1fr;
+
+    gap: 22px;
+
+    align-items: start;
+}
+
+/* =========================
+   BOXES
+========================= */
+
+.box {
+    position: relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 31, 52, .96),
+            rgba(9, 17, 30, .98)
+        );
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    border: 1px solid var(--border);
+
+    box-shadow: var(--shadow);
+
+    overflow: hidden;
+
+    animation: boxAppear .55s ease both;
+}
+
+.box::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--blue),
+        transparent
+    );
+
+    opacity: .7;
+}
+
+.box::after {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    top: -100px;
+    left: -100px;
+
+    background: rgba(22, 131, 255, .07);
+
+    border-radius: 50%;
+
+    filter: blur(30px);
+
+    pointer-events: none;
+}
+
+.box:nth-child(2) {
+    animation-delay: .08s;
+}
+
+@keyframes boxAppear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   TITLES
+========================= */
+
+h2 {
+    margin-bottom: 18px;
+
+    color: var(--white);
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#formTitle {
+    color: var(--blue-light);
+
+    padding-bottom: 13px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    margin-bottom: 12px;
+
+    background:
+        rgba(5, 11, 20, .75);
+
+    color: var(--text);
+
+    border: 1px solid rgba(91, 145, 210, .2);
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color .25s ease,
+        box-shadow .25s ease,
+        background .25s ease,
+        transform .2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #718097;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+    border-color: rgba(67, 167, 255, .32);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--blue);
+
+    background:
+        rgba(10, 23, 40, .95);
+
+    box-shadow:
+        0 0 0 3px rgba(22, 131, 255, .09),
+        0 0 18px rgba(22, 131, 255, .12);
+
+    transform: translateY(-1px);
+}
+
+select {
+    cursor: pointer;
+}
+
+select option {
+    background: #0d1728;
+    color: var(--white);
+}
+
+textarea {
+    min-height: 85px;
+
+    resize: vertical;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+button {
+    border: 0;
+
+    border-radius: 10px;
+
+    padding: 11px 15px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition:
+        transform .2s ease,
+        box-shadow .25s ease,
+        background .25s ease,
+        opacity .25s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* =========================
+   SAVE BUTTON
+========================= */
+
+.save-btn {
+    position: relative;
+
+    width: 100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--blue-dark)
+        );
+
+    color: white;
+
+    font-size: 16px;
+
+    margin-top: 4px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 8px 22px rgba(22, 131, 255, .2);
+}
+
+.save-btn::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 80%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.2),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: left .6s ease;
+}
+
+.save-btn:hover::before {
+    left: 130%;
+}
+
+.save-btn:hover {
+    box-shadow:
+        0 10px 28px rgba(22, 131, 255, .32),
+        0 0 20px rgba(22, 131, 255, .12);
+}
+
+/* =========================
+   CANCEL BUTTON
+========================= */
+
+.cancel-btn {
+    width: 100%;
+
+    background:
+        #182438;
+
+    color: #c4cfdf;
+
+    margin-top: 9px;
+
+    border: 1px solid var(--border);
+}
+
+.cancel-btn:hover {
+    background: #20304a;
+
+    color: white;
+
+    border-color: rgba(67, 167, 255, .28);
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search {
+    margin-bottom: 17px;
+
+    font-size: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(6, 14, 25, .95),
+            rgba(12, 24, 42, .95)
+        );
+}
+
+.search:focus {
+    box-shadow:
+        0 0 0 3px rgba(22, 131, 255, .08),
+        0 0 25px rgba(22, 131, 255, .13);
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-container {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-radius: 13px;
+
+    border: 1px solid var(--border);
+
+    background: rgba(4, 9, 17, .45);
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--blue-dark) #0a1220;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 900px;
+
+    color: var(--text);
+}
+
+th,
+td {
+    padding: 14px 13px;
+
+    border-bottom: 1px solid rgba(91, 145, 210, .1);
+
+    text-align: right;
+
+    white-space: nowrap;
+}
+
+th {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0b1424,
+            #13243d
+        );
+
+    color: #dceaff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    border-bottom:
+        1px solid rgba(22, 131, 255, .3);
+}
+
+td {
+    color: #c7d2e2;
+
+    font-size: 13px;
+}
+
+tbody tr {
+    transition:
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+tbody tr:hover {
+    background:
+        rgba(22, 131, 255, .055);
+
+    box-shadow:
+        inset 3px 0 0 rgba(22, 131, 255, .6);
+}
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+td strong {
+    color: white;
+
+    font-weight: 700;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.edit {
+    background:
+        #172b46;
+
+    color: #8fc7ff;
+
+    margin-left: 5px;
+
+    border: 1px solid rgba(67, 167, 255, .18);
+
+    padding: 8px 11px;
+}
+
+.edit:hover {
+    background:
+        #1d3a5f;
+
+    color: white;
+
+    box-shadow:
+        0 0 15px rgba(22, 131, 255, .12);
+}
+
+.delete {
+    background:
+        rgba(255, 82, 100, .12);
+
+    color: #ff7280;
+
+    border: 1px solid rgba(255, 82, 100, .2);
+
+    padding: 8px 11px;
+}
+
+.delete:hover {
+    background:
+        rgba(255, 82, 100, .2);
+
+    color: #ff9aa4;
+
+    box-shadow:
+        0 0 15px rgba(255, 82, 100, .1);
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.active {
+    color: var(--green);
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 10px rgba(34, 199, 122, .2);
+}
+
+.inactive {
+    color: var(--red);
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 10px rgba(255, 82, 100, .18);
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty {
+    text-align: center;
+
+    padding: 45px 20px;
+
+    color: var(--muted);
+
+    background:
+        rgba(7, 13, 23, .5);
+
+    border-radius: 12px;
+
+    border: 1px dashed rgba(91, 145, 210, .18);
+
+    animation: emptyAppear .4s ease;
+}
+
+@keyframes emptyAppear {
+    from {
+        opacity: 0;
+        transform: scale(.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #080e18;
+}
+
+::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            180deg,
+            var(--blue),
+            var(--blue-dark)
+        );
+
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--blue-light);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 1100px) {
+
+    .layout {
+        grid-template-columns: 310px 1fr;
+    }
+
+    main {
+        padding: 22px 16px 35px;
+    }
+}
+
+@media(max-width: 950px) {
+
+    header {
+        padding: 16px 20px;
+    }
+
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .box:first-child {
+        order: 1;
+    }
+
+    .box:nth-child(2) {
+        order: 2;
+    }
+}
+
+@media(max-width: 650px) {
+
+    header {
+        padding: 15px 16px;
+    }
+
+    header > div:last-child {
+        font-size: 14px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    main {
+        padding: 16px 10px 30px;
+    }
+
+    .box {
+        padding: 17px 14px;
+
+        border-radius: 14px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    input,
+    select,
+    textarea {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    th,
+    td {
+        padding: 11px 10px;
+    }
+}
+
+@media(max-width: 400px) {
+
+    .box {
+        padding: 14px 11px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    header > div:last-child {
+        font-size: 13px;
+    }
+
+    .save-btn {
+        font-size: 15px;
+    }
+}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo"> </div>
+    <div>🧃 المنتجات</div>
+</header>
+
+<main>
+
+    <div class="layout">
+
+        <!-- نموذج المنتج -->
+
+        <section class="box">
+
+            <h2 id="formTitle">
+                ➕ إضافة منتج
+            </h2>
+
+            <input
+                id="name"
+                placeholder="اسم المنتج *"
+            >
+
+            <select id="category">
+                <option value="">
+                    اختر القسم
+                </option>
+            </select>
+
+            <input
+                id="barcode"
+                placeholder="الباركود"
+            >
+
+            <input
+                id="sku"
+                placeholder="SKU / كود المنتج"
+            >
+
+            <input
+                id="unit"
+                placeholder="الوحدة مثل: قطعة، كرتونة، كيلو"
+                value="قطعة"
+            >
+
+            <input
+                id="purchasePrice"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="سعر الشراء"
+            >
+
+            <input
+                id="wholesalePrice"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="سعر الجملة"
+            >
+
+            <input
+                id="retailPrice"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="سعر البيع"
+            >
+
+            <input
+                id="stock"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="الكمية الحالية"
+            >
+
+            <input
+                id="minimumStock"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="الحد الأدنى للمخزون"
+            >
+
+            <input
+                id="maximumStock"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="الحد الأقصى للمخزون"
+            >
+
+            <input
+                id="expiryDate"
+                type="date"
+            >
+
+            <input
+                id="imageUrl"
+                placeholder="رابط صورة المنتج اختياري"
+            >
+
+            <textarea
+                id="notes"
+                placeholder="ملاحظات">
+            </textarea>
+
+            <button
+                class="save-btn"
+                onclick="saveProduct()">
+                💾 حفظ المنتج
+            </button>
+
+            <button
+                class="cancel-btn"
+                onclick="resetForm()">
+                إلغاء / منتج جديد
+            </button>
+
+        </section>
+
+
+        <!-- قائمة المنتجات -->
+
+        <section class="box">
+
+            <h2>
+                📋 قائمة المنتجات
+            </h2>
+
+            <input
+                class="search"
+                id="search"
+                placeholder="🔎 ابحث باسم المنتج أو الباركود أو SKU..."
+                oninput="filterProducts()"
+            >
+
+            <div
+                class="table-container"
+                id="productsTable">
+
+                <div class="empty">
+                    جاري تحميل المنتجات...
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const API = "http://localhost:3000/api";
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "login.html";
+}
+
+async function apiFetch(url, options = {}) {
+
+    const currentToken =
+        localStorage.getItem("token");
+
+    if (!currentToken) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    options.headers = {
+        ...(options.headers || {}),
+        "Authorization":
+            `Bearer ${currentToken}`
+    };
+
+    const response =
+        await fetch(url, options);
+
+    if (response.status === 401) {
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        window.location.href =
+            "login.html";
+
+        return;
+    }
+
+    return response;
+}
+let products = [];
+let categories = [];
+let editingId = null;
+
+
+/* تحميل البيانات */
+
+async function loadData() {
+
+    await Promise.all([
+        loadCategories(),
+        loadProducts()
+    ]);
+}
+
+
+/* الأقسام */
+
+async function loadCategories() {
+
+    try {
+
+        const response =
+            await apiFetch(`${API}/categories`);
+
+        const data =
+            await response.json();
+
+        categories =
+            data.categories || [];
+
+        const select =
+            document.getElementById("category");
+
+        select.innerHTML =
+            `<option value="">
+                اختر القسم
+            </option>`;
+
+        categories.forEach(category => {
+
+            select.innerHTML += `
+                <option value="${category.id}">
+                    ${escapeHtml(category.name)}
+                </option>
+            `;
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+}
+
+
+/* المنتجات */
+
+async function loadProducts() {
+
+    try {
+
+        const response =
+            await apiFetch(`${API}/products`);
+
+        const data =
+            await response.json();
+
+        products =
+            data.products || [];
+
+        renderProducts(products);
+
+    } catch (error) {
+
+        document.getElementById("productsTable")
+            .innerHTML =
+            `<div class="empty">
+                ❌ تعذر تحميل المنتجات
+            </div>`;
+    }
+}
+
+
+/* عرض المنتجات */
+
+function renderProducts(list) {
+
+    const container =
+        document.getElementById("productsTable");
+
+    if (!list.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                لا توجد منتجات
+            </div>`;
+
+        return;
+    }
+
+    container.innerHTML = `
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>المنتج</th>
+                    <th>القسم</th>
+                    <th>الباركود</th>
+                    <th>الوحدة</th>
+                    <th>الشراء</th>
+                    <th>الجملة</th>
+                    <th>البيع</th>
+                    <th>المخزون</th>
+                    <th>الحالة</th>
+                    <th>إجراء</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${list.map(product => {
+
+                    const category =
+                        categories.find(
+                            c => c.id === product.category_id
+                        );
+
+                    return `
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    ${escapeHtml(
+                                        product.name
+                                    )}
+                                </strong>
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    category?.name || "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    product.barcode || "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    product.unit || "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${money(
+                                    product.purchase_price
+                                )}
+                            </td>
+
+                            <td>
+                                ${money(
+                                    product.wholesale_price
+                                )}
+                            </td>
+
+                            <td>
+                                ${money(
+                                    product.retail_price
+                                )}
+                            </td>
+
+                            <td>
+                                ${product.current_stock}
+                            </td>
+
+                            <td class="${
+                                product.is_active
+                                ? "active"
+                                : "inactive"
+                            }">
+
+                                ${
+                                    product.is_active
+                                    ? "نشط"
+                                    : "معطل"
+                                }
+
+                            </td>
+
+                            <td>
+
+                                <button
+                                    class="edit"
+                                    onclick="editProduct(
+                                        '${product.id}'
+                                    )">
+                                    تعديل
+                                </button>
+
+                                ${
+                                    product.is_active
+                                    ? `
+                                        <button
+                                            class="delete"
+                                            onclick="deleteProduct(
+                                                '${product.id}'
+                                            )">
+                                            تعطيل
+                                        </button>
+                                    `
+                                    : ""
+                                }
+
+                            </td>
+
+                        </tr>
+                    `;
+
+                }).join("")}
+
+            </tbody>
+
+        </table>
+    `;
+}
+
+
+/* البحث */
+
+function filterProducts() {
+
+    const value =
+        document.getElementById("search")
+            .value
+            .trim()
+            .toLowerCase();
+
+    const filtered =
+        products.filter(product =>
+
+            product.name
+                .toLowerCase()
+                .includes(value)
+
+            ||
+
+            (product.barcode || "")
+                .toLowerCase()
+                .includes(value)
+
+            ||
+
+            (product.sku || "")
+                .toLowerCase()
+                .includes(value)
+        );
+
+    renderProducts(filtered);
+}
+
+
+/* حفظ المنتج */
+
+async function saveProduct() {
+
+    const name =
+        document.getElementById("name")
+            .value.trim();
+
+    const category_id =
+        document.getElementById("category")
+            .value;
+
+    const barcode =
+        document.getElementById("barcode")
+            .value.trim();
+
+    const sku =
+        document.getElementById("sku")
+            .value.trim();
+
+    const unit =
+        document.getElementById("unit")
+            .value.trim();
+
+    const purchase_price =
+        Number(
+            document.getElementById("purchasePrice")
+                .value || 0
+        );
+
+    const wholesale_price =
+        Number(
+            document.getElementById("wholesalePrice")
+                .value || 0
+        );
+
+    const retail_price =
+        Number(
+            document.getElementById("retailPrice")
+                .value || 0
+        );
+
+    const current_stock =
+        Number(
+            document.getElementById("stock")
+                .value || 0
+        );
+
+    const minimum_stock =
+        Number(
+            document.getElementById("minimumStock")
+                .value || 0
+        );
+
+    const maximumStockValue =
+        document.getElementById("maximumStock")
+            .value;
+
+    const maximum_stock =
+        maximumStockValue === ""
+        ? null
+        : Number(maximumStockValue);
+
+    const expiry_date =
+        document.getElementById("expiryDate")
+            .value || null;
+
+    const image_url =
+        document.getElementById("imageUrl")
+            .value.trim() || null;
+
+    const notes =
+        document.getElementById("notes")
+            .value.trim() || null;
+
+
+    if (!name) {
+        alert("اكتبي اسم المنتج");
+        return;
+    }
+
+    if (!category_id) {
+        alert("اختاري القسم");
+        return;
+    }
+
+    if (!unit) {
+        alert("اكتبي الوحدة");
+        return;
+    }
+
+
+    const body = {
+
+        name,
+        category_id,
+        barcode: barcode || null,
+        sku: sku || null,
+        unit,
+
+        purchase_price,
+        wholesale_price,
+        retail_price,
+
+        current_stock,
+        minimum_stock,
+        maximum_stock,
+
+        expiry_date,
+        image_url,
+        notes
+
+    };
+
+
+    try {
+
+        let response;
+
+        if (editingId) {
+
+            response =
+                await apiFetch(
+                   `${API}/products/${editingId}`,
+                    {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+                        body: JSON.stringify(body)
+                    }
+                );
+
+        } else {
+
+            response =
+                await apiFetch(
+                   `${API}/products`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+                        body: JSON.stringify(body)
+                    }
+                );
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+            throw new Error(
+                data.message ||
+                "حدث خطأ"
+            );
+        }
+
+
+        alert(
+            editingId
+            ? "✅ تم تعديل المنتج"
+            : "✅ تم إضافة المنتج"
+        );
+
+
+        resetForm();
+
+        loadProducts();
+
+
+    } catch (error) {
+
+        alert("❌ " + error.message);
+
+    }
+}
+
+
+/* تعديل المنتج */
+
+function editProduct(id) {
+
+    const product =
+        products.find(
+            p => p.id === id
+        );
+
+    if (!product) return;
+
+    editingId = id;
+
+    document.getElementById("formTitle")
+        .textContent =
+        "✏️ تعديل المنتج";
+
+    document.getElementById("name")
+        .value =
+        product.name || "";
+
+    document.getElementById("category")
+        .value =
+        product.category_id || "";
+
+    document.getElementById("barcode")
+        .value =
+        product.barcode || "";
+
+    document.getElementById("sku")
+        .value =
+        product.sku || "";
+
+    document.getElementById("unit")
+        .value =
+        product.unit || "";
+
+    document.getElementById("purchasePrice")
+        .value =
+        product.purchase_price || 0;
+
+    document.getElementById("wholesalePrice")
+        .value =
+        product.wholesale_price || 0;
+
+    document.getElementById("retailPrice")
+        .value =
+        product.retail_price || 0;
+
+    document.getElementById("stock")
+        .value =
+        product.current_stock || 0;
+
+    document.getElementById("minimumStock")
+        .value =
+        product.minimum_stock || 0;
+
+    document.getElementById("maximumStock")
+        .value =
+        product.maximum_stock ?? "";
+
+    document.getElementById("expiryDate")
+        .value =
+        product.expiry_date
+        ? product.expiry_date.substring(0, 10)
+        : "";
+
+    document.getElementById("imageUrl")
+        .value =
+        product.image_url || "";
+
+    document.getElementById("notes")
+        .value =
+        product.notes || "";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* تعطيل المنتج */
+
+async function deleteProduct(id) {
+
+    if (!confirm(
+        "هل تريد تعطيل هذا المنتج؟"
+    )) {
+        return;
+    }
+
+    try {
+
+        const response =
+             await apiFetch(
+               `${API}/products/${id}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.message
+            );
+        }
+
+        alert("✅ تم تعطيل المنتج");
+
+        loadProducts();
+
+    } catch (error) {
+
+        alert("❌ " + error.message);
+
+    }
+}
+
+
+/* إعادة النموذج */
+
+function resetForm() {
+
+    editingId = null;
+
+    document.getElementById("formTitle")
+        .textContent =
+        "➕ إضافة منتج";
+
+    document.getElementById("name").value = "";
+    document.getElementById("category").value = "";
+    document.getElementById("barcode").value = "";
+    document.getElementById("sku").value = "";
+    document.getElementById("unit").value = "قطعة";
+    document.getElementById("purchasePrice").value = "";
+    document.getElementById("wholesalePrice").value = "";
+    document.getElementById("retailPrice").value = "";
+    document.getElementById("stock").value = "";
+    document.getElementById("minimumStock").value = "";
+    document.getElementById("maximumStock").value = "";
+    document.getElementById("expiryDate").value = "";
+    document.getElementById("imageUrl").value = "";
+    document.getElementById("notes").value = "";
+}
+
+
+/* تنسيق الأموال */
+
+function money(value) {
+
+    return Number(value || 0)
+        .toLocaleString("ar-EG", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+}
+
+
+/* حماية النص */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+
+loadData();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> العملاء</title>
+<link rel="stylesheet" href="theme.css">
+    <style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #070b14;
+    --bg2: #0b1220;
+    --navy: #0d1728;
+    --navy-light: #13223a;
+    --card: #101a2b;
+    --card2: #0d1626;
+
+    --blue: #1683ff;
+    --blue-light: #36a3ff;
+    --blue-dark: #075fc2;
+
+    --white: #f5f8ff;
+    --text: #e7edf7;
+    --muted: #8d9bb0;
+
+    --border: rgba(90, 140, 200, .17);
+
+    --green: #22c77a;
+    --green-dark: #128653;
+
+    --danger: #ff4d5e;
+
+    --shadow: 0 12px 35px rgba(0, 0, 0, .35);
+    --blue-glow: 0 0 25px rgba(22, 131, 255, .14);
+}
+
+
+/* =========================
+   GENERAL
+========================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Tahoma, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 85% 0%,
+            rgba(22, 131, 255, .09),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 10% 100%,
+            rgba(0, 80, 170, .07),
+            transparent 30%
+        ),
+        var(--bg);
+
+    color: var(--text);
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    background:
+        linear-gradient(
+            135deg,
+            #080d17,
+            #0d1728
+        );
+
+    color: white;
+
+    padding: 18px 25px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    border-bottom:
+        1px solid rgba(50, 130, 220, .18);
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, .45);
+
+    backdrop-filter: blur(12px);
+}
+
+
+/* خط إضاءة أسفل الهيدر */
+
+header::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(22, 131, 255, .75),
+            transparent
+        );
+
+    box-shadow:
+        0 0 10px rgba(22, 131, 255, .35);
+}
+
+
+.logo {
+    color: white;
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 18px rgba(22, 131, 255, .35);
+}
+
+
+header > div:last-child {
+    font-size: 18px;
+
+    font-weight: bold;
+
+    color: #eef5ff;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    max-width: 1400px;
+
+    margin: auto;
+
+    padding: 28px;
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+.layout {
+    display: grid;
+
+    grid-template-columns:
+        350px 1fr;
+
+    gap: 22px;
+
+    align-items: start;
+}
+
+
+/* =========================
+   BOXES
+========================= */
+
+.box {
+    background:
+        linear-gradient(
+            145deg,
+            #101b2d,
+            #0b1422
+        );
+
+    padding: 22px;
+
+    border-radius: 17px;
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        var(--shadow),
+        var(--blue-glow);
+
+    position: relative;
+
+    overflow: hidden;
+
+    animation:
+        fadeUp .55s ease both;
+}
+
+
+/* إضاءة أعلى الكارت */
+
+.box::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(22, 131, 255, .75),
+            transparent
+        );
+}
+
+
+/* إضاءة داخلية خفيفة */
+
+.box::after {
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    left: -100px;
+    bottom: -100px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(22, 131, 255, .08),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+
+.box:first-child {
+    animation-delay: .05s;
+}
+
+.box:last-child {
+    animation-delay: .12s;
+}
+
+
+/* =========================
+   TITLES
+========================= */
+
+h2 {
+    margin-bottom: 18px;
+
+    color: #f2f6ff;
+
+    font-size: 20px;
+
+    position: relative;
+
+    z-index: 1;
+}
+
+
+/* =========================
+   INPUTS
+========================= */
+
+input,
+textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    margin-bottom: 12px;
+
+    border:
+        1px solid rgba(100, 145, 200, .20);
+
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    font-family: inherit;
+
+    color: #edf5ff;
+
+    background:
+        rgba(5, 12, 23, .72);
+
+    outline: none;
+
+    transition:
+        border-color .25s,
+        box-shadow .25s,
+        background .25s,
+        transform .25s;
+}
+
+
+input::placeholder,
+textarea::placeholder {
+    color: #718198;
+}
+
+
+input:focus,
+textarea:focus {
+    border-color:
+        rgba(22, 131, 255, .65);
+
+    background:
+        rgba(7, 17, 31, .95);
+
+    box-shadow:
+        0 0 0 3px rgba(22, 131, 255, .08),
+        0 0 18px rgba(22, 131, 255, .10);
+}
+
+
+textarea {
+    resize: vertical;
+
+    min-height: 90px;
+}
+
+
+/* =========================
+   BUTTON GENERAL
+========================= */
+
+button {
+    border: 0;
+
+    border-radius: 9px;
+
+    padding: 11px 15px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-weight: bold;
+
+    transition:
+        transform .22s,
+        box-shadow .22s,
+        background .22s;
+}
+
+
+button:hover {
+    transform:
+        translateY(-2px);
+}
+
+
+button:active {
+    transform:
+        translateY(0);
+}
+
+
+/* =========================
+   ADD BUTTON
+========================= */
+
+.add-btn {
+    width: 100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--blue-dark)
+        );
+
+    color: white;
+
+    font-size: 16px;
+
+    border:
+        1px solid rgba(100, 190, 255, .20);
+
+    box-shadow:
+        0 7px 22px rgba(22, 131, 255, .22);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.add-btn::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    right: -100%;
+
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.14),
+            transparent
+        );
+
+    transition: .55s;
+}
+
+
+.add-btn:hover::before {
+    right: 100%;
+}
+
+
+.add-btn:hover {
+    box-shadow:
+        0 10px 28px rgba(22, 131, 255, .35);
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search {
+    margin-bottom: 17px;
+
+    background:
+        rgba(7, 14, 26, .85);
+
+    border-color:
+        rgba(60, 130, 200, .22);
+}
+
+
+/* =========================
+   CUSTOMER CARD
+========================= */
+
+.customer {
+    background:
+        linear-gradient(
+            145deg,
+            #111e32,
+            #0c1625
+        );
+
+    border:
+        1px solid rgba(90, 140, 200, .14);
+
+    border-radius: 13px;
+
+    padding: 17px;
+
+    margin-bottom: 12px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 18px;
+
+    align-items: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform .25s,
+        border-color .25s,
+        box-shadow .25s;
+
+    animation:
+        customerIn .4s ease both;
+}
+
+
+/* خط جانبي */
+
+.customer::before {
+    content: "";
+
+    position: absolute;
+
+    right: 0;
+
+    top: 15%;
+
+    width: 3px;
+
+    height: 70%;
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            transparent,
+            var(--blue),
+            transparent
+        );
+
+    box-shadow:
+        0 0 10px rgba(22, 131, 255, .55);
+}
+
+
+.customer:hover {
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(22, 131, 255, .30);
+
+    box-shadow:
+        0 10px 28px rgba(0, 0, 0, .28),
+        0 0 20px rgba(22, 131, 255, .06);
+}
+
+
+/* =========================
+   CUSTOMER NAME
+========================= */
+
+.customer h3 {
+    margin-bottom: 8px;
+
+    color: #f2f6ff;
+
+    font-size: 17px;
+}
+
+
+/* =========================
+   CUSTOMER INFO
+========================= */
+
+.customer-info {
+    color: #8e9db1;
+
+    line-height: 1.8;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   BALANCE
+========================= */
+
+.balance {
+    font-size: 18px;
+
+    font-weight: bold;
+
+    margin: 8px 0;
+
+    color: #eaf2ff;
+}
+
+
+.debt {
+    color: var(--danger);
+
+    text-shadow:
+        0 0 12px rgba(255, 77, 94, .20);
+}
+
+
+.credit {
+    color: var(--green);
+
+    text-shadow:
+        0 0 12px rgba(34, 199, 122, .18);
+}
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+.actions {
+    display: flex;
+
+    gap: 7px;
+
+    flex-wrap: wrap;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* الحساب */
+
+.account-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #162842,
+            #0e1b2d
+        );
+
+    color: #dbeaff;
+
+    border:
+        1px solid rgba(22, 131, 255, .28);
+
+    box-shadow:
+        0 5px 14px rgba(0,0,0,.18);
+}
+
+
+.account-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #1a365a,
+            #10233b
+        );
+
+    border-color:
+        rgba(22, 131, 255, .55);
+
+    box-shadow:
+        0 7px 18px rgba(22, 131, 255, .15);
+}
+
+
+/* الدفع */
+
+.payment-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #149665,
+            #087047
+        );
+
+    color: white;
+
+    box-shadow:
+        0 5px 14px rgba(20, 150, 101, .16);
+}
+
+
+.payment-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #19b579,
+            #098355
+        );
+
+    box-shadow:
+        0 7px 20px rgba(20, 150, 101, .28);
+}
+
+
+/* التعطيل */
+
+.delete-btn {
+    background:
+        linear-gradient(
+            135deg,
+            #d93649,
+            #a91f31
+        );
+
+    color: white;
+
+    box-shadow:
+        0 5px 14px rgba(217, 54, 73, .14);
+}
+
+
+.delete-btn:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #f04457,
+            #c12438
+        );
+
+    box-shadow:
+        0 7px 20px rgba(255, 77, 94, .25);
+}
+
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty {
+    text-align: center;
+
+    color: #718198;
+
+    padding: 35px 20px;
+
+    border:
+        1px dashed rgba(90, 140, 200, .18);
+
+    border-radius: 12px;
+
+    background:
+        rgba(5, 12, 22, .30);
+}
+
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+
+::-webkit-scrollbar-track {
+    background: #070b14;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            #12345b,
+            #1683ff
+        );
+
+    border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background: #36a3ff;
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+@keyframes customerIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media(max-width: 900px) {
+
+    main {
+        padding: 20px 15px;
+    }
+
+
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+
+    .customer {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .actions {
+        width: 100%;
+    }
+
+
+    .actions button {
+        flex: 1;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 600px) {
+
+    header {
+        padding: 15px;
+
+        font-size: 14px;
+    }
+
+
+    header > div:last-child {
+        font-size: 16px;
+    }
+
+
+    main {
+        padding: 14px;
+    }
+
+
+    .box {
+        padding: 17px;
+
+        border-radius: 14px;
+    }
+
+
+    h2 {
+        font-size: 18px;
+    }
+
+
+    input,
+    textarea {
+        font-size: 14px;
+
+        padding: 12px;
+    }
+
+
+    .customer {
+        padding: 15px;
+    }
+
+
+    .customer h3 {
+        font-size: 16px;
+    }
+
+
+    .customer-info {
+        font-size: 13px;
+    }
+
+
+    .actions {
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 8px;
+    }
+
+
+    .actions button {
+        width: 100%;
+
+        flex: unset;
+    }
+
+
+    .delete-btn {
+        grid-column:
+            1 / -1;
+    }
+
+}
+
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media(max-width: 380px) {
+
+    .actions {
+        grid-template-columns: 1fr;
+    }
+
+
+    .delete-btn {
+        grid-column: auto;
+    }
+
+
+    header > div:last-child {
+        font-size: 14px;
+    }
+
+}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo"> </div>
+    <div>👥 العملاء</div>
+</header>
+
+<main>
+
+    <div class="layout">
+
+        <!-- إضافة عميل -->
+        <section class="box">
+
+            <h2>➕ إضافة عميل</h2>
+
+            <input
+                id="name"
+                placeholder="اسم العميل *"
+            >
+
+            <input
+                id="phone"
+                placeholder="رقم الهاتف"
+            >
+
+            <input
+                id="address"
+                placeholder="العنوان"
+            >
+
+            <textarea
+                id="notes"
+                placeholder="ملاحظات"
+            ></textarea>
+
+            <button
+                class="add-btn"
+                onclick="addCustomer()">
+                إضافة العميل
+            </button>
+
+        </section>
+
+
+        <!-- العملاء -->
+        <section class="box">
+
+            <h2>📋 قائمة العملاء</h2>
+
+            <input
+                class="search"
+                id="search"
+                placeholder="🔎 ابحث باسم العميل أو الهاتف..."
+                oninput="searchCustomers()"
+            >
+
+            <div id="customers">
+                <div class="empty">
+                    جاري تحميل العملاء...
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script>
+
+const API = "http://localhost:3000/api";
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "login.html";
+}
+
+async function apiFetch(url, options = {}) {
+
+    options.headers = {
+        ...(options.headers || {}),
+        "Authorization": `Bearer ${token}`
+    };
+
+const response = await fetch(url, options);
+    if (response.status === 401) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "login.html";
+        return;
+    }
+
+    return response;
+}
+let customers = [];
+
+
+/* تحميل العملاء */
+
+async function loadCustomers() {
+
+    try {
+
+        const response =
+            await apiFetch(`${API}/customers`);
+
+        const data =
+            await response.json();
+
+        customers = data.customers || [];
+
+        renderCustomers(customers);
+
+    } catch (error) {
+
+        document.getElementById("customers").innerHTML =
+            `<div class="empty">
+                ❌ تعذر تحميل العملاء
+            </div>`;
+    }
+}
+
+
+/* عرض العملاء */
+
+function renderCustomers(list) {
+
+    const container =
+        document.getElementById("customers");
+
+    if (!list.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                لا يوجد عملاء
+            </div>`;
+
+        return;
+    }
+
+    container.innerHTML = list.map(customer => `
+
+        <div class="customer">
+
+            <div>
+
+                <h3>
+                    👤 ${escapeHtml(customer.name)}
+                </h3>
+
+                <div class="customer-info">
+
+                    📞 ${escapeHtml(customer.phone || "بدون هاتف")}
+                    <br>
+
+                    📍 ${escapeHtml(customer.address || "بدون عنوان")}
+
+                </div>
+
+            </div>
+
+            <div class="actions">
+
+                <button
+                    class="account-btn"
+                    onclick="showAccount('${customer.id}')">
+                    💰 الحساب
+                </button>
+
+                <button
+                    class="payment-btn"
+                    onclick="payCustomer('${customer.id}')">
+                    💵 تسجيل دفع
+                </button>
+
+                <button
+                    class="delete-btn"
+                    onclick="deactivateCustomer('${customer.id}')">
+                    تعطيل
+                </button>
+
+            </div>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* البحث */
+
+function searchCustomers() {
+
+    const value =
+        document.getElementById("search")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const filtered =
+        customers.filter(customer =>
+            customer.name.toLowerCase().includes(value) ||
+            (customer.phone || "")
+                .toLowerCase()
+                .includes(value)
+        );
+
+    renderCustomers(filtered);
+}
+
+
+/* إضافة عميل */
+
+async function addCustomer() {
+
+    const name =
+        document.getElementById("name")
+        .value.trim();
+
+    const phone =
+        document.getElementById("phone")
+        .value.trim();
+
+    const address =
+        document.getElementById("address")
+        .value.trim();
+
+    const notes =
+        document.getElementById("notes")
+        .value.trim();
+
+    if (!name) {
+
+        alert("اكتبي اسم العميل");
+
+        return;
+    }
+
+    try {
+
+        const response =
+        await apiFetch(`${API}/customers`, {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    name,
+                    phone: phone || null,
+                    address: address || null,
+                    notes: notes || null
+                })
+            });
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message);
+        }
+
+        alert("✅ تم إضافة العميل");
+
+        document.getElementById("name").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("address").value = "";
+        document.getElementById("notes").value = "";
+
+        loadCustomers();
+
+    } catch (error) {
+
+        alert("❌ " + error.message);
+    }
+}
+
+
+/* حساب العميل */
+
+async function showAccount(id) {
+
+    try {
+
+        const response =
+        await apiFetch(`${API}/customers/${id}/account`);
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message);
+        }
+
+        const account = data.account;
+
+        let message =
+            `اسم العميل: ${account.name}\n\n`;
+
+        message +=
+            `الرصيد الحالي: ${account.balance} جنيه\n`;
+
+        message +=
+            `إجمالي المدين: ${account.total_debit} جنيه\n`;
+
+        message +=
+            `إجمالي الدائن: ${account.total_credit} جنيه\n\n`;
+
+        message +=
+            "آخر الحركات:\n";
+
+        if (account.transactions &&
+            account.transactions.length) {
+
+            account.transactions
+                .slice(0, 10)
+                .forEach(transaction => {
+
+                    message +=
+                        `\n${transaction.transaction_type} - `
+                        + `${transaction.amount} جنيه`;
+                });
+
+        } else {
+
+            message += "\nلا توجد حركات";
+        }
+
+        alert(message);
+
+    } catch (error) {
+
+        alert("❌ " + error.message);
+    }
+}
+
+
+/* تسجيل دفعة */
+
+async function payCustomer(id) {
+
+    const amount =
+        prompt("اكتبي المبلغ المدفوع:");
+
+    if (amount === null) return;
+
+    const value = Number(amount);
+
+    if (!value || value <= 0) {
+
+        alert("المبلغ غير صحيح");
+
+        return;
+    }
+
+    try {
+
+        const response =
+           await apiFetch(
+    `${API}/customers/${id}/payment`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        amount: value
+                    })
+                }
+            );
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message);
+        }
+
+        alert("✅ تم تسجيل الدفع");
+
+        loadCustomers();
+
+    } catch (error) {
+
+        alert("❌ " + error.message);
+    }
+}
+
+
+/* تعطيل العميل */
+
+async function deactivateCustomer(id) {
+
+    if (!confirm("هل تريد تعطيل هذا العميل؟")) {
+        return;
+    }
+
+    try {
+
+        const response =
+            await apiFetch(
+    `${API}/customers/${id}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message);
+        }
+
+        alert("✅ تم تعطيل العميل");
+
+        loadCustomers();
+
+    } catch (error) {
+
+        alert("❌ " + error.message);
+    }
+}
+
+
+/* حماية عرض النص */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+
+loadCustomers();
+
+</script>
+
+</body>
+</html>

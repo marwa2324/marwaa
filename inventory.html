@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> المخزون</title>
+<link rel="stylesheet" href="theme.css">
+    <style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #070b14;
+    --bg2: #0b1220;
+    --navy: #0d1728;
+    --navy-light: #13223a;
+    --card: #101a2b;
+    --card2: #0c1626;
+
+    --blue: #1683ff;
+    --blue-light: #36a3ff;
+    --blue-dark: #075fc2;
+
+    --white: #f5f8ff;
+    --text: #e7edf7;
+    --muted: #8d9bb0;
+
+    --border: rgba(90, 140, 200, .17);
+
+    --green: #22c77a;
+    --green-bg: rgba(34, 199, 122, .12);
+
+    --yellow: #ffc247;
+    --yellow-bg: rgba(255, 194, 71, .12);
+
+    --danger: #ff4d5e;
+    --danger-bg: rgba(255, 77, 94, .12);
+
+    --shadow: 0 12px 35px rgba(0, 0, 0, .35);
+    --blue-glow: 0 0 25px rgba(22, 131, 255, .14);
+}
+
+
+/* =========================
+   GENERAL
+========================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Tahoma, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 85% 0%,
+            rgba(22, 131, 255, .09),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 10% 100%,
+            rgba(0, 80, 170, .07),
+            transparent 30%
+        ),
+        var(--bg);
+
+    color: var(--text);
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    background:
+        linear-gradient(
+            135deg,
+            #080d17,
+            #0d1728
+        );
+
+    color: white;
+
+    padding: 18px 25px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+    border-bottom:
+        1px solid rgba(50, 130, 220, .18);
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, .45);
+
+    backdrop-filter: blur(12px);
+}
+
+
+header::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(22, 131, 255, .75),
+            transparent
+        );
+
+    box-shadow:
+        0 0 10px rgba(22, 131, 255, .35);
+}
+
+
+.logo {
+    color: white;
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 18px rgba(22, 131, 255, .35);
+}
+
+
+header > div:last-child {
+    font-size: 18px;
+
+    font-weight: bold;
+
+    color: #eef5ff;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    max-width: 1500px;
+
+    margin: auto;
+
+    padding: 28px;
+}
+
+
+/* =========================
+   TOP
+========================= */
+
+.top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 22px;
+
+    flex-wrap: wrap;
+
+    animation:
+        fadeUp .5s ease;
+}
+
+
+.top h2 {
+    margin-bottom: 6px;
+
+    color: #f2f6ff;
+
+    font-size: 23px;
+}
+
+
+.top > div:first-child > div {
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search {
+    width: 350px;
+
+    max-width: 100%;
+
+    padding: 13px 15px;
+
+    border:
+        1px solid rgba(90, 140, 200, .20);
+
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    font-family: inherit;
+
+    color: #edf5ff;
+
+    background:
+        rgba(7, 14, 26, .88);
+
+    outline: none;
+
+    transition:
+        border-color .25s,
+        box-shadow .25s,
+        background .25s;
+}
+
+
+.search::placeholder {
+    color: #718198;
+}
+
+
+.search:focus {
+    border-color:
+        rgba(22, 131, 255, .65);
+
+    background:
+        rgba(7, 17, 31, .98);
+
+    box-shadow:
+        0 0 0 3px rgba(22, 131, 255, .08),
+        0 0 20px rgba(22, 131, 255, .10);
+}
+
+
+/* =========================
+   REFRESH BUTTON
+========================= */
+
+.refresh {
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--blue-dark)
+        );
+
+    color: white;
+
+    border:
+        1px solid rgba(100, 190, 255, .20);
+
+    border-radius: 9px;
+
+    padding: 11px 19px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    font-family: inherit;
+
+    box-shadow:
+        0 7px 20px rgba(22, 131, 255, .20);
+
+    transition:
+        transform .22s,
+        box-shadow .22s;
+}
+
+
+.refresh:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 10px 27px rgba(22, 131, 255, .35);
+}
+
+
+.refresh:active {
+    transform:
+        translateY(0);
+}
+
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.cards {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(200px, 1fr)
+        );
+
+    gap: 16px;
+
+    margin-bottom: 22px;
+}
+
+
+.card {
+    background:
+        linear-gradient(
+            145deg,
+            #101b2d,
+            #0b1422
+        );
+
+    padding: 21px;
+
+    border-radius: 16px;
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        var(--shadow);
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform .3s,
+        border-color .3s,
+        box-shadow .3s;
+
+    animation:
+        fadeUp .6s ease both;
+}
+
+
+.card:nth-child(2) {
+    animation-delay: .05s;
+}
+
+.card:nth-child(3) {
+    animation-delay: .10s;
+}
+
+.card:nth-child(4) {
+    animation-delay: .15s;
+}
+
+
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(22, 131, 255, .75),
+            transparent
+        );
+}
+
+
+.card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    left: -60px;
+    bottom: -60px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(22, 131, 255, .08),
+            transparent 70%
+        );
+}
+
+
+.card:hover {
+    transform:
+        translateY(-5px);
+
+    border-color:
+        rgba(22, 131, 255, .34);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.38),
+        0 0 20px rgba(22,131,255,.08);
+}
+
+
+.card-title {
+    color: #8999ae;
+
+    margin-bottom: 10px;
+
+    font-size: 14px;
+}
+
+
+.number {
+    font-size: 29px;
+
+    font-weight: bold;
+
+    color: var(--blue-light);
+
+    text-shadow:
+        0 0 15px rgba(22, 131, 255, .25);
+}
+
+
+.danger {
+    color: var(--danger) !important;
+
+    text-shadow:
+        0 0 15px rgba(255, 77, 94, .22);
+}
+
+
+.success {
+    color: var(--green) !important;
+
+    text-shadow:
+        0 0 15px rgba(34, 199, 122, .20);
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    background:
+        linear-gradient(
+            145deg,
+            #101a2b,
+            #0b1422
+        );
+
+    padding: 22px;
+
+    border-radius: 16px;
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        var(--shadow);
+
+    margin-bottom: 22px;
+
+    overflow-x: auto;
+
+    position: relative;
+
+    animation:
+        fadeUp .7s ease both;
+}
+
+
+.section:nth-of-type(2) {
+    animation-delay: .08s;
+}
+
+
+.section h2 {
+    color: #f1f6ff;
+
+    font-size: 20px;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+table {
+    width: 100%;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    min-width: 850px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    border:
+        1px solid rgba(90, 140, 200, .12);
+}
+
+
+/* Header */
+
+th,
+td {
+    padding: 14px;
+
+    border-bottom:
+        1px solid rgba(90, 140, 200, .10);
+
+    text-align: right;
+
+    white-space: nowrap;
+}
+
+
+th {
+    background:
+        linear-gradient(
+            135deg,
+            #111f35,
+            #0c1728
+        );
+
+    color: #f2f7ff;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 2;
+
+    border-bottom:
+        1px solid rgba(22, 131, 255, .22);
+}
+
+
+td {
+    color: #b9c7d9;
+
+    font-size: 14px;
+
+    background:
+        rgba(8, 16, 28, .45);
+}
+
+
+tbody tr {
+    transition:
+        background .2s,
+        transform .2s;
+}
+
+
+tbody tr:hover td {
+    background:
+        rgba(22, 131, 255, .055);
+
+    color: #edf5ff;
+}
+
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+
+td strong {
+    color: #edf5ff;
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+.badge {
+    display: inline-block;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    border: 1px solid transparent;
+}
+
+
+/* متوفر */
+
+.available {
+    background:
+        var(--green-bg);
+
+    color:
+        #42db96;
+
+    border-color:
+        rgba(34, 199, 122, .20);
+
+    box-shadow:
+        0 0 12px rgba(34, 199, 122, .05);
+}
+
+
+/* منخفض */
+
+.low {
+    background:
+        var(--yellow-bg);
+
+    color:
+        #ffc95c;
+
+    border-color:
+        rgba(255, 194, 71, .22);
+
+    box-shadow:
+        0 0 12px rgba(255, 194, 71, .05);
+}
+
+
+/* نفد */
+
+.out {
+    background:
+        var(--danger-bg);
+
+    color:
+        #ff6877;
+
+    border-color:
+        rgba(255, 77, 94, .22);
+
+    box-shadow:
+        0 0 12px rgba(255, 77, 94, .06);
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty {
+    text-align: center;
+
+    padding: 35px 20px;
+
+    color: #718198;
+
+    border:
+        1px dashed rgba(90, 140, 200, .18);
+
+    border-radius: 12px;
+
+    background:
+        rgba(5, 12, 22, .30);
+}
+
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+
+::-webkit-scrollbar-track {
+    background: #070b14;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            #12345b,
+            #1683ff
+        );
+
+    border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background: #36a3ff;
+}
+
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media(max-width: 900px) {
+
+    main {
+        padding: 20px 15px;
+    }
+
+
+    .top {
+        align-items: stretch;
+    }
+
+
+    .top > div:last-child {
+        width: 100%;
+    }
+
+
+    .refresh {
+        width: 100%;
+    }
+
+
+    .section {
+        padding: 17px;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 700px) {
+
+    header {
+        padding: 15px;
+
+        font-size: 14px;
+    }
+
+
+    header > div:last-child {
+        font-size: 16px;
+    }
+
+
+    main {
+        padding: 14px;
+    }
+
+
+    .top h2 {
+        font-size: 20px;
+    }
+
+
+    .search {
+        width: 100%;
+    }
+
+
+    .cards {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 11px;
+    }
+
+
+    .card {
+        padding: 16px;
+    }
+
+
+    .card-title {
+        font-size: 13px;
+    }
+
+
+    .number {
+        font-size: 25px;
+    }
+
+
+    .section {
+        border-radius: 14px;
+
+        padding: 14px;
+    }
+
+
+    table {
+        min-width: 820px;
+    }
+
+}
+
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media(max-width: 400px) {
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+
+    .card {
+        padding: 18px;
+    }
+
+
+    .top h2 {
+        font-size: 18px;
+    }
+
+
+    .top > div:first-child > div {
+        font-size: 13px;
+    }
+
+}
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo"> </div>
+    <div>📦 المخزون</div>
+</header>
+
+<main>
+
+    <div class="top">
+
+        <div>
+            <h2>📦 إدارة المخزون</h2>
+            <div>متابعة الكميات وحالة المنتجات</div>
+        </div>
+
+        <div>
+            <button
+                class="refresh"
+                onclick="loadInventory()">
+                🔄 تحديث
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- الإحصائيات -->
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-title">
+                📦 إجمالي المنتجات
+            </div>
+
+            <div
+                class="number"
+                id="totalProducts">
+                0
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-title">
+                ⚠️ مخزون منخفض
+            </div>
+
+            <div
+                class="number danger"
+                id="lowProducts">
+                0
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-title">
+                ❌ نفد من المخزون
+            </div>
+
+            <div
+                class="number danger"
+                id="outProducts">
+                0
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-title">
+                ✅ متوفر
+            </div>
+
+            <div
+                class="number success"
+                id="availableProducts">
+                0
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- قائمة المخزون -->
+
+    <section class="section">
+
+        <input
+            class="search"
+            id="search"
+            placeholder="🔎 ابحث باسم المنتج أو الباركود..."
+            oninput="filterInventory()"
+        >
+
+        <br><br>
+
+        <div id="inventoryTable">
+            <div class="empty">
+                جاري تحميل المخزون...
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- حركات المخزون -->
+
+    <section class="section">
+
+        <h2>
+            🔄 آخر حركات المخزون
+        </h2>
+
+        <br>
+
+        <div id="movementsTable">
+            <div class="empty">
+                جاري تحميل الحركات...
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+const API = "http://localhost:3000/api";
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "login.html";
+}
+
+async function apiFetch(url, options = {}) {
+
+    const currentToken = localStorage.getItem("token");
+
+    if (!currentToken) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    options.headers = {
+        ...(options.headers || {}),
+        "Authorization": `Bearer ${currentToken}`
+    };
+
+    const response = await fetch(url, options);
+
+    if (response.status === 401) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        window.location.href = "login.html";
+        return;
+    }
+
+    return response;
+}
+let inventory = [];
+
+
+/* تحميل المخزون */
+
+async function loadInventory() {
+
+    try {
+
+        const response =
+            await apiFetch(`${API}/inventory`);
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message);
+        }
+
+        inventory = data.products || [];
+
+        updateStats();
+
+        renderInventory(inventory);
+
+        loadMovements();
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("inventoryTable").innerHTML =
+            `<div class="empty">
+                ❌ تعذر تحميل المخزون
+            </div>`;
+    }
+}
+
+
+/* الإحصائيات */
+
+function updateStats() {
+
+    const total = inventory.length;
+
+    const low = inventory.filter(
+        product =>
+            Number(product.current_stock) > 0 &&
+            Number(product.current_stock) <=
+            Number(product.minimum_stock)
+    ).length;
+
+    const out = inventory.filter(
+        product =>
+            Number(product.current_stock) <= 0
+    ).length;
+
+    const available =
+        total - low - out;
+
+    document.getElementById("totalProducts")
+        .textContent = total;
+
+    document.getElementById("lowProducts")
+        .textContent = low;
+
+    document.getElementById("outProducts")
+        .textContent = out;
+
+    document.getElementById("availableProducts")
+        .textContent = available;
+}
+
+
+/* عرض المخزون */
+
+function renderInventory(list) {
+
+    const container =
+        document.getElementById("inventoryTable");
+
+    if (!list.length) {
+
+        container.innerHTML =
+            `<div class="empty">
+                لا توجد منتجات
+            </div>`;
+
+        return;
+    }
+
+    container.innerHTML = `
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>المنتج</th>
+                    <th>الباركود</th>
+                    <th>الوحدة</th>
+                    <th>المخزون الحالي</th>
+                    <th>الحد الأدنى</th>
+                    <th>سعر الشراء</th>
+                    <th>سعر الجملة</th>
+                    <th>سعر البيع</th>
+                    <th>الحالة</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${list.map(product => {
+
+                    const stock =
+                        Number(product.current_stock);
+
+                    const minimum =
+                        Number(product.minimum_stock);
+
+                    let status;
+                    let badgeClass;
+
+                    if (stock <= 0) {
+
+                        status = "نفد المخزون";
+                        badgeClass = "out";
+
+                    } else if (stock <= minimum) {
+
+                        status = "مخزون منخفض";
+                        badgeClass = "low";
+
+                    } else {
+
+                        status = "متوفر";
+                        badgeClass = "available";
+                    }
+
+                    return `
+
+                        <tr>
+
+                            <td>
+                                <strong>
+                                    ${escapeHtml(
+                                        product.name
+                                    )}
+                                </strong>
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    product.barcode || "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    product.unit || "-"
+                                )}
+                            </td>
+
+                            <td>
+                                <strong
+                                    class="${
+                                        stock <= minimum
+                                        ? "danger"
+                                        : ""
+                                    }">
+
+                                    ${stock}
+
+                                </strong>
+                            </td>
+
+                            <td>
+                                ${minimum}
+                            </td>
+
+                            <td>
+                                ${money(
+                                    product.purchase_price
+                                )}
+                            </td>
+
+                            <td>
+                                ${money(
+                                    product.wholesale_price
+                                )}
+                            </td>
+
+                            <td>
+                                ${money(
+                                    product.retail_price
+                                )}
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="badge ${badgeClass}">
+
+                                    ${status}
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                }).join("")}
+
+            </tbody>
+
+        </table>
+    `;
+}
+
+
+/* البحث */
+
+function filterInventory() {
+
+    const value =
+        document.getElementById("search")
+        .value
+        .trim()
+        .toLowerCase();
+
+    const filtered =
+        inventory.filter(product =>
+
+            product.name
+                .toLowerCase()
+                .includes(value)
+
+            ||
+
+            (product.barcode || "")
+                .toLowerCase()
+                .includes(value)
+
+            ||
+
+            (product.sku || "")
+                .toLowerCase()
+                .includes(value)
+        );
+
+    renderInventory(filtered);
+}
+
+
+/* حركات المخزون */
+
+async function loadMovements() {
+
+    try {
+        const response =
+        await apiFetch(
+            `${API}/inventory/movements`
+        );
+
+        const data =
+            await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message);
+        }
+
+        const movements =
+            data.movements || [];
+
+        const container =
+            document.getElementById(
+                "movementsTable"
+            );
+
+        if (!movements.length) {
+
+            container.innerHTML =
+                `<div class="empty">
+                    لا توجد حركات مخزون
+                </div>`;
+
+            return;
+        }
+
+        container.innerHTML = `
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>التاريخ</th>
+                        <th>المنتج</th>
+                        <th>نوع الحركة</th>
+                        <th>الكمية</th>
+                        <th>قبل</th>
+                        <th>بعد</th>
+                        <th>المرجع</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${movements.slice(0, 50)
+                        .map(move => `
+
+                        <tr>
+
+                            <td>
+                                ${formatDate(
+                                    move.created_at
+                                )}
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    move.product_name || "-"
+                                )}
+                            </td>
+
+                            <td>
+                                ${movementName(
+                                    move.movement_type
+                                )}
+                            </td>
+
+                            <td>
+                                ${move.quantity}
+                            </td>
+
+                            <td>
+                                ${move.stock_before}
+                            </td>
+
+                            <td>
+                                ${move.stock_after}
+                            </td>
+
+                            <td>
+                                ${escapeHtml(
+                                    move.reference_type ||
+                                    "-"
+                                )}
+                            </td>
+
+                        </tr>
+
+                    `).join("")}
+
+                </tbody>
+
+            </table>
+        `;
+
+    } catch (error) {
+
+        document.getElementById(
+            "movementsTable"
+        ).innerHTML =
+            `<div class="empty">
+                ❌ تعذر تحميل حركات المخزون
+            </div>`;
+    }
+}
+
+
+/* أسماء الحركات */
+
+function movementName(type) {
+
+    const names = {
+
+        PURCHASE: "📥 شراء",
+
+        SALE: "📤 بيع",
+
+        RETURN: "↩️ مرتجع",
+
+        ADJUSTMENT: "⚙️ تعديل"
+
+    };
+
+    return names[type] || type;
+}
+
+
+/* التاريخ */
+
+function formatDate(date) {
+
+    if (!date) return "-";
+
+    return new Date(date)
+        .toLocaleString("ar-EG");
+}
+
+
+/* الأموال */
+
+function money(value) {
+
+    return Number(value || 0)
+        .toLocaleString("ar-EG", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+}
+
+
+/* حماية النص */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+
+loadInventory();
+
+</script>
+
+</body>
+</html>

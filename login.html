@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> تسجيل الدخول</title>
+<link rel="stylesheet" href="theme.css">
+    <style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#060a12;
+    --bg2:#0b1220;
+
+    --navy:#0d1728;
+    --navy-light:#14243d;
+
+    --blue:#1683ff;
+    --blue-light:#45a8ff;
+    --blue-dark:#075fc2;
+
+    --white:#f5f8ff;
+    --text:#e7edf7;
+    --muted:#8e9caf;
+
+    --border:rgba(91,145,210,.18);
+
+    --red:#ff5264;
+    --red-bg:rgba(255,77,94,.1);
+
+    --shadow:0 25px 70px rgba(0,0,0,.55);
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body{
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    font-family:Arial,sans-serif;
+
+    color:var(--text);
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(22,131,255,.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(7,95,194,.1),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #04070d,
+            #09111e 50%,
+            #050a12
+        );
+
+    overflow:hidden;
+}
+
+
+/* =========================
+   DECORATIVE LIGHT
+========================= */
+
+body::before{
+    content:"";
+    position:fixed;
+
+    width:420px;
+    height:420px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(22,131,255,.08);
+
+    box-shadow:
+        0 0 80px rgba(22,131,255,.05);
+
+    top:-220px;
+    right:-180px;
+
+    pointer-events:none;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+
+    width:300px;
+    height:300px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(69,168,255,.06);
+
+    bottom:-170px;
+    left:-130px;
+
+    pointer-events:none;
+}
+
+
+/* =========================
+   LOGIN BOX
+========================= */
+
+.login-box{
+    position:relative;
+
+    width:420px;
+    max-width:100%;
+
+    padding:38px;
+
+    border-radius:22px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(22,131,255,.09),
+            transparent 38%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(16,27,45,.97),
+            rgba(8,15,27,.98)
+        );
+
+    border:1px solid rgba(91,145,210,.22);
+
+    box-shadow:
+        var(--shadow),
+        0 0 45px rgba(22,131,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    animation:
+        loginAppear .65s cubic-bezier(.2,.8,.2,1);
+
+    overflow:hidden;
+}
+
+.login-box::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    right:0;
+    left:0;
+
+    height:3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--blue),
+            var(--blue-light),
+            var(--blue),
+            transparent
+        );
+
+    box-shadow:
+        0 0 18px rgba(22,131,255,.6);
+}
+
+.login-box::after{
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:
+        rgba(22,131,255,.045);
+
+    filter:blur(25px);
+
+    top:-100px;
+    left:-80px;
+
+    pointer-events:none;
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo{
+    position:relative;
+
+    text-align:center;
+
+    color:var(--blue-light);
+
+    font-size:34px;
+    font-weight:bold;
+
+    margin-bottom:9px;
+
+    letter-spacing:.5px;
+
+    text-shadow:
+        0 0 20px rgba(69,168,255,.3);
+}
+
+
+/* =========================
+   SUBTITLE
+========================= */
+
+.subtitle{
+    text-align:center;
+
+    color:var(--muted);
+
+    margin-bottom:30px;
+
+    font-size:15px;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+label{
+    display:block;
+
+    margin-bottom:8px;
+
+    font-weight:bold;
+
+    color:#dbe6f5;
+
+    font-size:14px;
+}
+
+input{
+    width:100%;
+
+    padding:14px 15px;
+
+    margin-bottom:18px;
+
+    background:
+        rgba(5,11,20,.75);
+
+    color:var(--white);
+
+    border:1px solid rgba(91,145,210,.2);
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.25s;
+
+    direction:rtl;
+}
+
+input::placeholder{
+    color:#65748a;
+}
+
+input:hover{
+    border-color:
+        rgba(69,168,255,.3);
+}
+
+input:focus{
+    border-color:
+        var(--blue);
+
+    background:
+        rgba(8,17,30,.95);
+
+    box-shadow:
+        0 0 0 3px rgba(22,131,255,.1),
+        0 0 20px rgba(22,131,255,.1);
+
+    transform:translateY(-1px);
+}
+
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+
+button{
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid
+        rgba(69,168,255,.35);
+
+    border-radius:10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--blue-dark)
+        );
+
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 25px rgba(22,131,255,.18);
+
+    transition:.25s;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+button::before{
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-100%;
+
+    width:70%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.18),
+            transparent
+        );
+
+    transform:skewX(-20deg);
+
+    transition:.55s;
+}
+
+button:hover::before{
+    left:130%;
+}
+
+button:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 32px rgba(22,131,255,.3),
+        0 0 20px rgba(22,131,255,.1);
+
+    filter:brightness(1.08);
+}
+
+button:active{
+    transform:translateY(0);
+}
+
+button:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+    transform:none;
+    box-shadow:none;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error{
+    display:none;
+
+    background:
+        var(--red-bg);
+
+    color:#ff7a88;
+
+    padding:12px 14px;
+
+    border-radius:9px;
+
+    margin-bottom:15px;
+
+    text-align:center;
+
+    border:1px solid
+        rgba(255,77,94,.2);
+
+    box-shadow:
+        0 0 18px rgba(255,77,94,.05);
+
+    animation:
+        errorShake .35s ease;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+    display:none;
+
+    text-align:center;
+
+    margin-top:17px;
+
+    color:#8fa0b7;
+
+    font-size:14px;
+}
+
+.loading::after{
+    content:"";
+
+    display:block;
+
+    width:24px;
+    height:24px;
+
+    margin:10px auto 0;
+
+    border-radius:50%;
+
+    border:3px solid
+        rgba(69,168,255,.14);
+
+    border-top-color:
+        var(--blue-light);
+
+    animation:
+        spin .8s linear infinite;
+
+    box-shadow:
+        0 0 15px rgba(22,131,255,.15);
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes loginAppear{
+
+    from{
+        opacity:0;
+        transform:
+            translateY(25px)
+            scale(.97);
+    }
+
+    to{
+        opacity:1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes errorShake{
+
+    0%,100%{
+        transform:translateX(0);
+    }
+
+    25%{
+        transform:translateX(-5px);
+    }
+
+    75%{
+        transform:translateX(5px);
+    }
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:600px){
+
+    body{
+        padding:15px;
+    }
+
+    .login-box{
+        width:100%;
+        padding:30px 22px;
+
+        border-radius:18px;
+    }
+
+    .logo{
+        font-size:29px;
+    }
+
+    .subtitle{
+        font-size:14px;
+        margin-bottom:25px;
+    }
+
+    input{
+        padding:13px;
+    }
+
+    button{
+        padding:13px;
+    }
+}
+
+
+@media(max-width:380px){
+
+    .login-box{
+        padding:25px 18px;
+    }
+
+    .logo{
+        font-size:26px;
+    }
+
+    label{
+        font-size:13px;
+    }
+
+    input{
+        font-size:14px;
+    }
+}
+
+
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box">
+
+        <div class="logo">
+            
+        </div>
+
+        <div class="subtitle">
+            نظام إدارة محل الجملة
+        </div>
+
+        <div id="error" class="error"></div>
+
+        <form id="loginForm">
+
+            <label>
+                اسم المستخدم
+            </label>
+
+            <input
+                id="username"
+                type="text"
+                autocomplete="username"
+                placeholder="اكتب اسم المستخدم"
+                required
+            >
+
+            <label>
+                كلمة السر
+            </label>
+
+            <input
+                id="password"
+                type="password"
+                autocomplete="current-password"
+                placeholder="اكتب كلمة السر"
+                required
+            >
+
+            <button
+                id="loginButton"
+                type="submit">
+
+                🔐 تسجيل الدخول
+
+            </button>
+
+        </form>
+
+        <div id="loading" class="loading">
+            جاري تسجيل الدخول...
+        </div>
+
+    </div>
+
+
+<script>
+
+const API = "http://localhost:3000/api";
+
+
+document
+    .getElementById("loginForm")
+    .addEventListener("submit", login);
+
+
+async function login(event) {
+
+    event.preventDefault();
+
+    const username =
+        document
+            .getElementById("username")
+            .value
+            .trim();
+
+    const password =
+        document
+            .getElementById("password")
+            .value;
+
+
+    const errorBox =
+        document.getElementById("error");
+
+    const button =
+        document.getElementById("loginButton");
+
+    const loading =
+        document.getElementById("loading");
+
+
+    errorBox.style.display = "none";
+
+    button.disabled = true;
+
+    loading.style.display = "block";
+
+
+    try {
+
+        const response =
+            await fetch(`${API}/login`, {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "فشل تسجيل الدخول"
+            );
+        }
+
+
+        /*
+         * حفظ بيانات المستخدم
+         * للجلسة الحالية
+         */
+
+localStorage.setItem(
+    "token",
+    data.token
+);
+
+localStorage.setItem(
+    "user",
+    JSON.stringify(data.user)
+);
+        /*
+         * الانتقال للوحة التحكم
+         */
+
+        window.location.href =
+            "index.html";
+
+
+    } catch (error) {
+
+        errorBox.textContent =
+            "❌ " + error.message;
+
+        errorBox.style.display =
+            "block";
+
+    } finally {
+
+        button.disabled = false;
+
+        loading.style.display =
+            "none";
+    }
+}
+
+</script>
+
+</body>
+
+</html>

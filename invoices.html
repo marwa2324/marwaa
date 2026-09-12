@@ -1,0 +1,3191 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+   content="width=device-width, initial-scale=1.0">
+
+<title> الفواتير</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#070b14;
+    --bg2:#0b1220;
+    --navy:#0d1728;
+    --navy-light:#14243d;
+    --card:#101a2b;
+    --card2:#0c1626;
+
+    --blue:#1683ff;
+    --blue-light:#3ba3ff;
+    --blue-dark:#075fc2;
+
+    --white:#f5f8ff;
+    --text:#e7edf7;
+    --muted:#91a0b5;
+
+    --border:rgba(91,145,210,.17);
+    --border-blue:rgba(22,131,255,.32);
+
+    --green:#22c77a;
+    --green-bg:rgba(34,199,122,.12);
+
+    --yellow:#ffc247;
+    --yellow-bg:rgba(255,194,71,.12);
+
+    --red:#ff4d5e;
+    --red-bg:rgba(255,77,94,.12);
+
+    --shadow:0 14px 40px rgba(0,0,0,.35);
+    --glow:0 0 28px rgba(22,131,255,.14);
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body{
+    font-family:Arial,sans-serif;
+    background:
+        radial-gradient(
+            circle at 85% 10%,
+            rgba(22,131,255,.08),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #060a12,
+            #0a101c 55%,
+            #070c15
+        );
+    color:var(--text);
+    min-height:100vh;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    background:
+        linear-gradient(
+            135deg,
+            #080d17,
+            #0d1728
+        );
+    color:var(--white);
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    border-bottom:1px solid var(--border-blue);
+    box-shadow:
+        0 5px 25px rgba(0,0,0,.4),
+        0 0 25px rgba(22,131,255,.05);
+
+    backdrop-filter:blur(12px);
+}
+
+.logo{
+    color:var(--blue-light);
+    font-size:25px;
+    font-weight:bold;
+    letter-spacing:.5px;
+    text-shadow:
+        0 0 15px rgba(59,163,255,.35);
+}
+
+.menu-btn{
+    display:none;
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--blue-dark)
+        );
+    color:white;
+    border:1px solid rgba(255,255,255,.08);
+    padding:10px 14px;
+    border-radius:9px;
+    font-size:20px;
+    cursor:pointer;
+    box-shadow:0 0 18px rgba(22,131,255,.2);
+    transition:.25s;
+}
+
+.menu-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 25px rgba(22,131,255,.35);
+}
+
+.user-area{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    color:var(--text);
+}
+
+.logout-btn{
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--blue-dark)
+        );
+    color:white;
+    border:1px solid rgba(255,255,255,.08);
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:.25s;
+    box-shadow:0 0 15px rgba(22,131,255,.12);
+}
+
+.logout-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 22px rgba(22,131,255,.3);
+}
+
+
+/* =========================
+   LAYOUT
+========================= */
+
+.layout{
+    display:flex;
+    min-height:calc(100vh - 70px);
+}
+
+aside{
+    width:240px;
+    background:
+        linear-gradient(
+            180deg,
+            #080d17,
+            #0b1321
+        );
+    color:white;
+    padding:20px 12px;
+
+    border-left:1px solid var(--border);
+    box-shadow:
+        8px 0 30px rgba(0,0,0,.18);
+}
+
+.menu-title{
+    color:#718198;
+    padding:10px;
+    margin-bottom:8px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.menu-item{
+    display:block;
+    color:#cbd6e6;
+    text-decoration:none;
+    padding:13px;
+    margin-bottom:6px;
+    border-radius:10px;
+    transition:.25s;
+    border:1px solid transparent;
+}
+
+.menu-item:hover{
+    background:
+        rgba(22,131,255,.09);
+    color:white;
+    border-color:
+        rgba(22,131,255,.15);
+    transform:translateX(-3px);
+}
+
+.menu-item.active{
+    background:
+        linear-gradient(
+            135deg,
+            rgba(22,131,255,.95),
+            rgba(7,95,194,.95)
+        );
+    color:white;
+    border-color:
+        rgba(59,163,255,.45);
+
+    box-shadow:
+        0 0 22px rgba(22,131,255,.2);
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main{
+    flex:1;
+    padding:25px;
+    max-width:1500px;
+    width:100%;
+}
+
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.page-header{
+    background:
+        radial-gradient(
+            circle at 85% 30%,
+            rgba(22,131,255,.15),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #0d1728,
+            #101d31
+        );
+
+    color:white;
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:20px;
+
+    border:1px solid var(--border-blue);
+    box-shadow:var(--shadow),var(--glow);
+
+    animation:fadeUp .5s ease;
+}
+
+.page-header h1{
+    color:var(--white);
+    margin-bottom:8px;
+    font-size:28px;
+    text-shadow:
+        0 0 18px rgba(59,163,255,.18);
+}
+
+.page-header p{
+    color:var(--muted);
+}
+
+
+/* =========================
+   SUMMARY
+========================= */
+
+.summary{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.summary-card{
+    position:relative;
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #101b2d,
+            #0c1524
+        );
+
+    padding:20px;
+    border-radius:15px;
+
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+
+    transition:.3s;
+    animation:fadeUp .55s ease both;
+}
+
+.summary-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    right:0;
+    width:4px;
+    height:100%;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--blue-light),
+            var(--blue-dark)
+        );
+
+    box-shadow:
+        0 0 14px rgba(22,131,255,.4);
+}
+
+.summary-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--border-blue);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.35),
+        0 0 25px rgba(22,131,255,.09);
+}
+
+.summary-title{
+    color:var(--muted);
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+.summary-number{
+    font-size:27px;
+    font-weight:bold;
+    color:var(--blue-light);
+
+    text-shadow:
+        0 0 15px rgba(59,163,255,.18);
+}
+
+
+/* =========================
+   PANELS
+========================= */
+
+.panel{
+    background:
+        linear-gradient(
+            145deg,
+            #101a2b,
+            #0c1626
+        );
+
+    border-radius:16px;
+    padding:20px;
+
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+
+    margin-bottom:20px;
+    animation:fadeUp .6s ease both;
+}
+
+
+/* =========================
+   CONTROLS
+========================= */
+
+.controls{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:12px;
+}
+
+input,
+select{
+    width:100%;
+    padding:12px 14px;
+
+    background:#080f1b;
+    color:var(--text);
+
+    border:1px solid rgba(91,145,210,.2);
+    border-radius:10px;
+
+    font-size:15px;
+    outline:none;
+
+    transition:.25s;
+}
+
+input::placeholder{
+    color:#66758b;
+}
+
+input:hover,
+select:hover{
+    border-color:rgba(59,163,255,.28);
+}
+
+input:focus,
+select:focus{
+    border-color:var(--blue);
+
+    box-shadow:
+        0 0 0 3px rgba(22,131,255,.1),
+        0 0 18px rgba(22,131,255,.1);
+
+    background:#0a1423;
+}
+
+select option{
+    background:#0b1422;
+    color:white;
+}
+
+
+/* =========================
+   TABS
+========================= */
+
+.tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+}
+
+.tab{
+    border:1px solid var(--border);
+    background:#0b1422;
+    color:#aebbd0;
+
+    padding:11px 18px;
+    border-radius:10px;
+
+    cursor:pointer;
+    font-weight:bold;
+
+    transition:.25s;
+}
+
+.tab:hover{
+    color:white;
+    border-color:var(--border-blue);
+
+    box-shadow:
+        0 0 15px rgba(22,131,255,.08);
+}
+
+.tab.active{
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--blue-dark)
+        );
+
+    color:white;
+    border-color:rgba(59,163,255,.45);
+
+    box-shadow:
+        0 0 20px rgba(22,131,255,.2);
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-container{
+    overflow-x:auto;
+    border-radius:12px;
+}
+
+table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    min-width:950px;
+    overflow:hidden;
+}
+
+th{
+    background:
+        linear-gradient(
+            180deg,
+            #101e33,
+            #0d1728
+        );
+
+    color:#8ec9ff;
+
+    padding:14px;
+    text-align:right;
+
+    border-bottom:1px solid var(--border-blue);
+    white-space:nowrap;
+}
+
+td{
+    padding:13px;
+    color:#cbd6e5;
+    border-bottom:1px solid rgba(91,145,210,.1);
+    background:rgba(9,16,28,.55);
+}
+
+tbody tr{
+    transition:.2s;
+}
+
+tbody tr:hover td{
+    background:
+        rgba(22,131,255,.055);
+
+    color:white;
+}
+
+tbody tr:last-child td{
+    border-bottom:none;
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+.badge{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+    border:1px solid transparent;
+    white-space:nowrap;
+}
+
+.completed{
+    background:var(--green-bg);
+    color:#4ade96;
+    border-color:rgba(34,199,122,.2);
+    box-shadow:0 0 12px rgba(34,199,122,.06);
+}
+
+.pending{
+    background:var(--yellow-bg);
+    color:#ffd16a;
+    border-color:rgba(255,194,71,.2);
+}
+
+.cancelled{
+    background:var(--red-bg);
+    color:#ff7582;
+    border-color:rgba(255,77,94,.2);
+}
+
+.paid{
+    background:var(--green-bg);
+    color:#4ade96;
+    border-color:rgba(34,199,122,.2);
+}
+
+.partial{
+    background:var(--yellow-bg);
+    color:#ffd16a;
+    border-color:rgba(255,194,71,.2);
+}
+
+.unpaid{
+    background:var(--red-bg);
+    color:#ff7582;
+    border-color:rgba(255,77,94,.2);
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    border:none;
+    padding:8px 12px;
+    border-radius:8px;
+
+    cursor:pointer;
+    font-weight:bold;
+    margin:2px;
+
+    transition:.25s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    filter:brightness(1.1);
+}
+
+.btn-view{
+    background:
+        rgba(22,131,255,.13);
+    color:#62b4ff;
+    border:1px solid rgba(22,131,255,.25);
+}
+
+.btn-view:hover{
+    background:
+        rgba(22,131,255,.22);
+    box-shadow:
+        0 0 16px rgba(22,131,255,.16);
+}
+
+.btn-cancel{
+    background:
+        rgba(255,77,94,.13);
+    color:#ff6d7a;
+    border:1px solid rgba(255,77,94,.25);
+}
+
+.btn-cancel:hover{
+    background:
+        rgba(255,77,94,.22);
+    box-shadow:
+        0 0 16px rgba(255,77,94,.12);
+}
+
+.btn-return{
+    background:
+        rgba(255,194,71,.13);
+    color:#ffd36e;
+    border:1px solid rgba(255,194,71,.25);
+}
+
+.btn-return:hover{
+    background:
+        rgba(255,194,71,.22);
+    box-shadow:
+        0 0 16px rgba(255,194,71,.1);
+}
+
+
+/* =========================
+   EMPTY / LOADING
+========================= */
+
+.empty{
+    text-align:center;
+    padding:45px 20px;
+    color:#718198;
+    font-size:18px;
+
+    background:
+        rgba(7,13,23,.45);
+
+    border-radius:12px;
+    border:1px dashed rgba(91,145,210,.18);
+}
+
+.loading{
+    text-align:center;
+    padding:35px;
+    color:#8190a6;
+}
+
+.loading::after{
+    content:"";
+    display:block;
+
+    width:26px;
+    height:26px;
+
+    margin:12px auto 0;
+
+    border:3px solid rgba(59,163,255,.15);
+    border-top-color:var(--blue);
+
+    border-radius:50%;
+
+    animation:spin .8s linear infinite;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    display:none;
+
+    position:fixed;
+    inset:0;
+
+    background:
+        rgba(1,5,11,.82);
+
+    backdrop-filter:blur(8px);
+
+    z-index:500;
+    padding:20px;
+
+    overflow:auto;
+}
+
+.modal.show{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    animation:fadeIn .25s ease;
+}
+
+.modal-box{
+    background:
+        linear-gradient(
+            145deg,
+            #101b2d,
+            #0b1423
+        );
+
+    color:var(--text);
+
+    width:min(950px,100%);
+    max-height:90vh;
+
+    overflow:auto;
+
+    border-radius:18px;
+    padding:25px;
+
+    position:relative;
+
+    border:1px solid var(--border-blue);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.6),
+        0 0 35px rgba(22,131,255,.12);
+
+    animation:modalIn .3s ease;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:20px;
+
+    border-bottom:1px solid var(--border);
+    padding-bottom:15px;
+}
+
+.modal-header h2{
+    color:var(--white);
+}
+
+.close-btn{
+    border:1px solid rgba(22,131,255,.25);
+
+    background:
+        rgba(22,131,255,.1);
+
+    color:#62b4ff;
+
+    width:38px;
+    height:38px;
+
+    border-radius:9px;
+
+    cursor:pointer;
+    font-size:20px;
+
+    transition:.25s;
+}
+
+.close-btn:hover{
+    background:
+        rgba(255,77,94,.13);
+
+    color:#ff7180;
+    border-color:rgba(255,77,94,.25);
+
+    transform:rotate(90deg);
+}
+
+
+/* =========================
+   INVOICE INFO
+========================= */
+
+.invoice-info{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(180px,1fr));
+
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.info-box{
+    background:
+        linear-gradient(
+            145deg,
+            #0d1829,
+            #0a1422
+        );
+
+    padding:14px;
+    border-radius:10px;
+
+    border:1px solid var(--border);
+
+    transition:.2s;
+}
+
+.info-box:hover{
+    border-color:var(--border-blue);
+    transform:translateY(-2px);
+}
+
+.info-box span{
+    display:block;
+    color:#718198;
+    font-size:13px;
+    margin-bottom:6px;
+}
+
+.info-box strong{
+    font-size:16px;
+    color:#e8f0fc;
+}
+
+
+/* =========================
+   TOTALS
+========================= */
+
+.totals{
+    margin-top:20px;
+
+    background:
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(22,131,255,.12),
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            #0c1728,
+            #080f1b
+        );
+
+    color:white;
+
+    border-radius:13px;
+    padding:18px;
+
+    border:1px solid var(--border-blue);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.25);
+}
+
+.total-row{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    padding:7px 0;
+    color:#c7d3e4;
+}
+
+.total-row strong{
+    color:white;
+}
+
+.total-final{
+    border-top:1px solid rgba(91,145,210,.25);
+    margin-top:8px;
+    padding-top:12px;
+
+    color:var(--blue-light);
+
+    font-size:20px;
+    font-weight:bold;
+
+    text-shadow:
+        0 0 14px rgba(59,163,255,.2);
+}
+
+
+/* =========================
+   MODAL ACTIONS
+========================= */
+
+.modal-actions{
+    margin-top:20px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+
+/* =========================
+   RETURN BOX
+========================= */
+
+.return-box{
+    background:
+        rgba(255,194,71,.07);
+
+    border:1px solid rgba(255,194,71,.25);
+
+    color:#f4d98a;
+
+    padding:15px;
+    border-radius:10px;
+
+    margin-top:15px;
+
+    display:none;
+
+    box-shadow:
+        0 0 18px rgba(255,194,71,.04);
+}
+
+.return-box.show{
+    display:block;
+    animation:fadeUp .25s ease;
+}
+
+.return-box input{
+    margin:8px 0;
+}
+
+
+/* =========================
+   INLINE NOTE STYLE SUPPORT
+========================= */
+
+#invoiceDetails > div[style]{
+    background:
+        rgba(22,131,255,.06) !important;
+
+    color:#cbd6e5;
+
+    border:1px solid rgba(91,145,210,.15);
+}
+
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+    width:9px;
+    height:9px;
+}
+
+::-webkit-scrollbar-track{
+    background:#070c15;
+}
+
+::-webkit-scrollbar-thumb{
+    background:
+        linear-gradient(
+            180deg,
+            #174d82,
+            #0d2b4d
+        );
+
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#1b6fb5;
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:translateY(18px) scale(.98);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .menu-btn{
+        display:block;
+    }
+
+    aside{
+        position:fixed;
+        right:-250px;
+        top:70px;
+
+        height:calc(100vh - 70px);
+
+        transition:.3s;
+        z-index:200;
+
+        box-shadow:
+            -10px 0 35px rgba(0,0,0,.45);
+    }
+
+    aside.open{
+        right:0;
+    }
+
+    .layout{
+        display:block;
+    }
+
+    main{
+        padding:15px;
+    }
+
+    .controls{
+        grid-template-columns:1fr;
+    }
+
+    .page-header h1{
+        font-size:24px;
+    }
+}
+
+
+@media(max-width:600px){
+
+    header{
+        padding:0 12px;
+    }
+
+    header > div:last-child{
+        display:none;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+    .user-area{
+        font-size:13px;
+        gap:6px;
+    }
+
+    .logout-btn{
+        padding:7px 10px;
+    }
+
+    .page-header{
+        padding:18px;
+        border-radius:14px;
+    }
+
+    .page-header h1{
+        font-size:21px;
+    }
+
+    .summary{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .summary-card{
+        padding:15px;
+    }
+
+    .summary-number{
+        font-size:22px;
+    }
+
+    .panel{
+        padding:14px;
+        border-radius:13px;
+    }
+
+    .tabs{
+        gap:6px;
+    }
+
+    .tab{
+        flex:1;
+        min-width:110px;
+        padding:10px 8px;
+        font-size:13px;
+    }
+
+    .modal{
+        padding:10px;
+    }
+
+    .modal-box{
+        padding:17px;
+        border-radius:14px;
+        max-height:94vh;
+    }
+
+    .invoice-info{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .total-row{
+        font-size:13px;
+    }
+
+    .total-final{
+        font-size:17px;
+    }
+}
+
+
+@media(max-width:400px){
+
+    .summary{
+        grid-template-columns:1fr;
+    }
+
+    .invoice-info{
+        grid-template-columns:1fr;
+    }
+
+    .btn{
+        width:100%;
+        margin:3px 0;
+    }
+
+    .modal-actions{
+        flex-direction:column;
+    }
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+```
+<div class="user-area">
+
+    <span id="currentUserName">
+        المستخدم
+    </span>
+
+    <span id="currentUserRole"></span>
+
+    <button
+        onclick="logout()"
+        class="logout-btn">
+        🚪 خروج
+    </button>
+
+</div>
+
+<div class="logo">
+    
+</div>
+
+<button
+    class="menu-btn"
+    onclick="toggleMenu()">
+    ☰
+</button>
+
+<div>
+    نظام إدارة المحل
+</div>
+```
+
+</header>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+
+<aside id="sidebar">
+
+```
+<div class="menu-title">
+    القائمة الرئيسية
+</div>
+
+<a class="menu-item"
+   href="index.html">
+    🏠 الرئيسية
+</a>
+
+<a class="menu-item"
+   href="sales.html">
+    🛒 المبيعات
+</a>
+
+<a class="menu-item"
+   href="purchases.html">
+    📦 المشتريات
+</a>
+
+<a class="menu-item active"
+   href="invoices.html">
+    🧾 الفواتير
+</a>
+
+<a class="menu-item"
+   href="inventory.html">
+    📊 المخزون
+</a>
+
+<a class="menu-item"
+   href="customers.html">
+    👥 العملاء
+</a>
+
+<a class="menu-item"
+   href="suppliers.html">
+    🏪 الموردين
+</a>
+
+<a class="menu-item"
+   href="reports.html"
+   id="reportsLink">
+    📈 التقارير
+</a>
+
+<a class="menu-item"
+   href="products.html">
+    🧃 المنتجات
+</a>
+
+<a class="menu-item"
+   href="users.html"
+   id="usersLink">
+    👥 المستخدمين
+</a>
+```
+
+</aside>
+
+<!-- MAIN -->
+
+<main>
+
+<section class="page-header">
+
+```
+<h1>
+    🧾 إدارة الفواتير
+</h1>
+
+<p>
+    عرض ومراجعة جميع فواتير البيع والشراء
+</p>
+```
+
+</section>
+
+<!-- SUMMARY -->
+
+<section class="summary">
+
+```
+<div class="summary-card">
+
+    <div class="summary-title">
+        🧾 إجمالي الفواتير
+    </div>
+
+    <div
+        class="summary-number"
+        id="totalInvoices">
+        0
+    </div>
+
+</div>
+
+
+<div class="summary-card">
+
+    <div class="summary-title">
+        🛒 فواتير البيع
+    </div>
+
+    <div
+        class="summary-number"
+        id="salesInvoices">
+        0
+    </div>
+
+</div>
+
+
+<div class="summary-card">
+
+    <div class="summary-title">
+        📦 فواتير الشراء
+    </div>
+
+    <div
+        class="summary-number"
+        id="purchaseInvoices">
+        0
+    </div>
+
+</div>
+
+
+<div class="summary-card">
+
+    <div class="summary-title">
+        💰 قيمة المبيعات
+    </div>
+
+    <div
+        class="summary-number"
+        id="salesTotal">
+        0.00
+    </div>
+
+</div>
+
+
+<div class="summary-card">
+
+    <div class="summary-title">
+        💵 قيمة المشتريات
+    </div>
+
+    <div
+        class="summary-number"
+        id="purchaseTotal">
+        0.00
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- CONTROLS -->
+
+<section class="panel">
+
+```
+<div class="tabs">
+
+    <button
+        class="tab active"
+        onclick="changeType('all',this)">
+        📋 الكل
+    </button>
+
+    <button
+        class="tab"
+        onclick="changeType('sales',this)">
+        🛒 فواتير البيع
+    </button>
+
+    <button
+        class="tab"
+        onclick="changeType('purchases',this)">
+        📦 فواتير الشراء
+    </button>
+
+</div>
+
+
+<div class="controls">
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="🔎 ابحث برقم الفاتورة أو اسم العميل/المورد..."
+        oninput="renderInvoices()">
+
+
+    <select
+        id="statusFilter"
+        onchange="renderInvoices()">
+
+        <option value="all">
+            كل الحالات
+        </option>
+
+        <option value="completed">
+            مكتملة
+        </option>
+
+        <option value="pending">
+            معلقة
+        </option>
+
+        <option value="cancelled">
+            ملغاة
+        </option>
+
+    </select>
+
+
+    <select
+        id="paymentFilter"
+        onchange="renderInvoices()">
+
+        <option value="all">
+            كل حالات الدفع
+        </option>
+
+        <option value="paid">
+            مدفوعة
+        </option>
+
+        <option value="partial">
+            مدفوعة جزئيًا
+        </option>
+
+        <option value="unpaid">
+            غير مدفوعة
+        </option>
+
+    </select>
+
+</div>
+```
+
+</section>
+
+<!-- TABLE -->
+
+<section class="panel">
+
+```
+<div
+    id="loading"
+    class="loading">
+    جاري تحميل الفواتير...
+</div>
+
+
+<div
+    id="empty"
+    class="empty"
+    style="display:none;">
+    لا توجد فواتير مطابقة للبحث.
+</div>
+
+
+<div class="table-container">
+
+    <table id="invoicesTable"
+           style="display:none;">
+
+        <thead>
+
+        <tr>
+
+            <th>النوع</th>
+
+            <th>رقم الفاتورة</th>
+
+            <th>العميل / المورد</th>
+
+            <th>التاريخ</th>
+
+            <th>الإجمالي</th>
+
+            <th>المدفوع</th>
+
+            <th>المتبقي</th>
+
+            <th>الدفع</th>
+
+            <th>الحالة</th>
+
+            <th>الإجراءات</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody id="invoiceBody"></tbody>
+
+    </table>
+
+</div>
+```
+
+</section>
+
+</main>
+
+</div>
+
+<!-- DETAILS MODAL -->
+
+<div
+    class="modal"
+    id="detailsModal"
+    onclick="closeModalOutside(event)">
+
+```
+<div
+    class="modal-box"
+    onclick="event.stopPropagation()">
+
+    <div class="modal-header">
+
+        <h2>
+            🧾 تفاصيل الفاتورة
+        </h2>
+
+        <button
+            class="close-btn"
+            onclick="closeModal()">
+            ×
+        </button>
+
+    </div>
+
+
+    <div
+        id="invoiceDetails">
+    </div>
+
+</div>
+```
+
+</div>
+
+<script>
+
+const API =
+    "http://localhost:3000/api";
+
+const token =
+    localStorage.getItem("token");
+
+const currentUser =
+    JSON.parse(
+        localStorage.getItem("user")
+    );
+
+
+/* حماية */
+
+if(!token || !currentUser){
+
+    window.location.href =
+        "login.html";
+}
+
+
+/* المستخدم */
+
+if(currentUser){
+
+    document.getElementById(
+        "currentUserName"
+    ).textContent =
+        "👤 " + currentUser.name;
+
+    let roleText = "";
+
+    if(currentUser.role === "admin"){
+
+        roleText =
+            "👑 مدير النظام";
+
+    }else if(currentUser.role === "manager"){
+
+        roleText =
+            "⭐ مدير";
+
+    }else{
+
+        roleText =
+            "👨‍💼 موظف";
+
+    }
+
+    document.getElementById(
+        "currentUserRole"
+    ).textContent =
+        roleText;
+}
+
+
+/* API */
+
+async function apiFetch(url,options={}){
+
+    const currentToken =
+        localStorage.getItem("token");
+
+    if(!currentToken){
+
+        window.location.href =
+            "login.html";
+
+        return null;
+    }
+
+    options.headers = {
+
+        ...(options.headers || {}),
+
+        "Authorization":
+            `Bearer ${currentToken}`,
+
+        "Content-Type":
+            "application/json"
+
+    };
+
+    try{
+
+        const response =
+            await fetch(url,options);
+
+        if(response.status === 401){
+
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+
+            window.location.href =
+                "login.html";
+
+            return null;
+        }
+
+        return response;
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            "تعذر الاتصال بالخادم"
+        );
+
+        return null;
+    }
+
+}
+
+
+/* البيانات */
+
+let salesInvoices = [];
+let purchaseInvoices = [];
+
+let currentType = "all";
+
+
+/* تحميل الفواتير */
+
+async function loadInvoices(){
+
+    document.getElementById(
+        "loading"
+    ).style.display = "block";
+
+    try{
+
+        const [
+            salesResponse,
+            purchaseResponse
+        ] = await Promise.all([
+
+            apiFetch(
+                `${API}/sales-invoices`
+            ),
+
+            apiFetch(
+                `${API}/purchase-invoices`
+            )
+
+        ]);
+
+        if(!salesResponse ||
+           !purchaseResponse){
+
+            return;
+        }
+
+
+        const salesData =
+            await salesResponse.json();
+
+        const purchaseData =
+            await purchaseResponse.json();
+
+
+        if(!salesResponse.ok){
+
+            throw new Error(
+                salesData.message ||
+                "فشل تحميل فواتير البيع"
+            );
+
+        }
+
+        if(!purchaseResponse.ok){
+
+            throw new Error(
+                purchaseData.message ||
+                "فشل تحميل فواتير الشراء"
+            );
+
+        }
+
+
+        salesInvoices =
+            (salesData.invoices || [])
+            .map(invoice => ({
+
+                ...invoice,
+
+                type:"sales",
+
+                displayName:
+                    invoice.customer_name ||
+                    "عميل نقدي"
+
+            }));
+
+
+        purchaseInvoices =
+            (purchaseData.invoices || [])
+            .map(invoice => ({
+
+                ...invoice,
+
+                type:"purchases",
+
+                displayName:
+                    invoice.supplier_name ||
+                    "مورد غير محدد"
+
+            }));
+
+
+        updateSummary();
+
+        renderInvoices();
+
+
+    }catch(error){
+
+        console.error(
+            "Invoices error:",
+            error
+        );
+
+        document.getElementById(
+            "loading"
+        ).textContent =
+            "حدث خطأ أثناء تحميل الفواتير";
+
+    }
+
+}
+
+
+/* الملخص */
+
+function updateSummary(){
+
+    document.getElementById(
+        "salesInvoices"
+    ).textContent =
+        salesInvoices.length;
+
+
+    document.getElementById(
+        "purchaseInvoices"
+    ).textContent =
+        purchaseInvoices.length;
+
+
+    document.getElementById(
+        "totalInvoices"
+    ).textContent =
+        salesInvoices.length +
+        purchaseInvoices.length;
+
+
+    const salesTotal =
+        salesInvoices.reduce(
+            (sum,invoice) =>
+                sum +
+                Number(invoice.total || 0),
+            0
+        );
+
+
+    const purchaseTotal =
+        purchaseInvoices.reduce(
+            (sum,invoice) =>
+                sum +
+                Number(invoice.total || 0),
+            0
+        );
+
+
+    document.getElementById(
+        "salesTotal"
+    ).textContent =
+        formatMoney(salesTotal);
+
+
+    document.getElementById(
+        "purchaseTotal"
+    ).textContent =
+        formatMoney(purchaseTotal);
+
+}
+
+
+/* تغيير النوع */
+
+function changeType(type,button){
+
+    currentType = type;
+
+    document.querySelectorAll(
+        ".tab"
+    ).forEach(tab =>
+        tab.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+    renderInvoices();
+
+}
+
+
+/* عرض الفواتير */
+
+function renderInvoices(){
+
+    const body =
+        document.getElementById(
+            "invoiceBody"
+        );
+
+    const table =
+        document.getElementById(
+            "invoicesTable"
+        );
+
+    const empty =
+        document.getElementById(
+            "empty"
+        );
+
+    const search =
+        document.getElementById(
+            "searchInput"
+        ).value
+        .trim()
+        .toLowerCase();
+
+
+    const status =
+        document.getElementById(
+            "statusFilter"
+        ).value;
+
+
+    const payment =
+        document.getElementById(
+            "paymentFilter"
+        ).value;
+
+
+    let invoices = [];
+
+
+    if(currentType === "sales"){
+
+        invoices =
+            [...salesInvoices];
+
+    }else if(currentType === "purchases"){
+
+        invoices =
+            [...purchaseInvoices];
+
+    }else{
+
+        invoices = [
+
+            ...salesInvoices,
+            ...purchaseInvoices
+
+        ];
+
+    }
+
+
+    invoices =
+        invoices.filter(invoice => {
+
+            const text =
+                (
+                    invoice.invoice_number ||
+                    ""
+                ).toLowerCase()
+                + " "
+                +
+                (
+                    invoice.displayName ||
+                    ""
+                ).toLowerCase();
+
+
+            const matchesSearch =
+                !search ||
+                text.includes(search);
+
+
+            const matchesStatus =
+                status === "all" ||
+                normalizeStatus(
+                    invoice.invoice_status
+                ) === status;
+
+
+            const matchesPayment =
+                payment === "all" ||
+                normalizePayment(
+                    invoice.payment_status
+                ) === payment;
+
+
+            return (
+                matchesSearch &&
+                matchesStatus &&
+                matchesPayment
+            );
+
+        });
+
+
+    invoices.sort(
+        (a,b) =>
+            new Date(b.created_at) -
+            new Date(a.created_at)
+    );
+
+
+    body.innerHTML = "";
+
+
+    document.getElementById(
+        "loading"
+    ).style.display = "none";
+
+
+    if(!invoices.length){
+
+        table.style.display = "none";
+
+        empty.style.display = "block";
+
+        return;
+    }
+
+
+    empty.style.display = "none";
+
+    table.style.display = "table";
+
+
+    invoices.forEach(invoice => {
+
+        const row =
+            document.createElement("tr");
+
+
+        const typeText =
+            invoice.type === "sales"
+                ? "🛒 بيع"
+                : "📦 شراء";
+
+
+        const typeColor =
+            invoice.type === "sales"
+                ? "#198754"
+                : "#caa400";
+
+
+        row.innerHTML = `
+
+            <td>
+                <span
+                    style="
+                    font-weight:bold;
+                    color:${typeColor};
+                    ">
+                    ${typeText}
+                </span>
+            </td>
+
+            <td>
+                <strong>
+                    ${escapeHtml(
+                        invoice.invoice_number || "-"
+                    )}
+                </strong>
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    invoice.displayName || "-"
+                )}
+            </td>
+
+            <td>
+                ${formatDate(
+                    invoice.created_at
+                )}
+            </td>
+
+            <td>
+                <strong>
+                    ${formatMoney(
+                        invoice.total
+                    )}
+                </strong>
+            </td>
+
+            <td>
+                ${formatMoney(
+                    invoice.paid_amount
+                )}
+            </td>
+
+            <td>
+                ${formatMoney(
+                    invoice.remaining_amount
+                )}
+            </td>
+
+            <td>
+                ${paymentBadge(
+                    invoice.payment_status
+                )}
+            </td>
+
+            <td>
+                ${statusBadge(
+                    invoice.invoice_status
+                )}
+            </td>
+
+            <td>
+
+                <button
+                    class="btn btn-view"
+                    onclick="
+                    viewInvoice(
+                        '${invoice.type}',
+                        ${invoice.id}
+                    )">
+                    👁️ عرض
+                </button>
+
+                ${
+                    canManageInvoices() &&
+                    invoice.type === "sales" &&
+                    normalizeStatus(
+                        invoice.invoice_status
+                    ) !== "cancelled"
+                    ?
+                    `
+                    <button
+                        class="btn btn-cancel"
+                        onclick="
+                        cancelSalesInvoice(
+                            ${invoice.id}
+                        )">
+                        ❌ إلغاء
+                    </button>
+                    `
+                    :
+                    ""
+                }
+
+                ${
+                    canManageInvoices() &&
+                    invoice.type === "purchases" &&
+                    normalizeStatus(
+                        invoice.invoice_status
+                    ) === "completed"
+                    ?
+                    `
+                    <button
+                        class="btn btn-return"
+                        onclick="
+                        showReturnBox(
+                            ${invoice.id}
+                        )">
+                        ↩️ مرتجع
+                    </button>
+                    `
+                    :
+                    ""
+                }
+
+            </td>
+
+        `;
+
+        body.appendChild(row);
+
+    });
+
+}
+
+
+/* عرض التفاصيل */
+
+async function viewInvoice(type,id){
+
+    const modal =
+        document.getElementById(
+            "detailsModal"
+        );
+
+    const container =
+        document.getElementById(
+            "invoiceDetails"
+        );
+
+
+    modal.classList.add("show");
+
+    container.innerHTML =
+        `<div class="loading">
+            جاري تحميل التفاصيل...
+        </div>`;
+
+
+    try{
+
+        const endpoint =
+            type === "sales"
+                ? `${API}/sales-invoices/${id}`
+                : `${API}/purchase-invoices/${id}`;
+
+
+        const response =
+            await apiFetch(endpoint);
+
+
+        if(!response) return;
+
+
+        const data =
+            await response.json();
+
+
+        if(!response.ok){
+
+            throw new Error(
+                data.message ||
+                "فشل تحميل التفاصيل"
+            );
+
+        }
+
+
+        const invoice =
+            data.invoice;
+
+        const items =
+            data.items || [];
+
+
+        renderInvoiceDetails(
+            type,
+            invoice,
+            items
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div class="empty">
+                ${escapeHtml(
+                    error.message ||
+                    "حدث خطأ"
+                )}
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* تفاصيل الفاتورة */
+
+function renderInvoiceDetails(
+    type,
+    invoice,
+    items
+){
+
+    const container =
+        document.getElementById(
+            "invoiceDetails"
+        );
+
+
+    const person =
+        type === "sales"
+            ? (
+                invoice.customer_name ||
+                "عميل نقدي"
+            )
+            : (
+                invoice.supplier_name ||
+                "مورد غير محدد"
+            );
+
+
+    let rows = "";
+
+
+    items.forEach((item,index) => {
+
+        const profit =
+            type === "sales"
+                ? `
+                    <td>
+                        ${formatMoney(
+                            item.profit
+                        )}
+                    </td>
+                  `
+                : "";
+
+
+        rows += `
+
+            <tr>
+
+                <td>
+                    ${index + 1}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        item.product_name || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        item.barcode || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${formatNumber(
+                        item.quantity
+                    )}
+                </td>
+
+                <td>
+                    ${formatMoney(
+                        item.unit_price
+                    )}
+                </td>
+
+                <td>
+                    ${formatMoney(
+                        item.discount
+                    )}
+                </td>
+
+                <td>
+                    ${formatMoney(
+                        item.total
+                    )}
+                </td>
+
+                ${profit}
+
+            </tr>
+
+        `;
+
+    });
+
+
+    const profitHeader =
+        type === "sales"
+            ? "<th>الربح</th>"
+            : "";
+
+
+    container.innerHTML = `
+
+        <div class="invoice-info">
+
+            <div class="info-box">
+
+                <span>
+                    نوع الفاتورة
+                </span>
+
+                <strong>
+                    ${
+                        type === "sales"
+                            ? "🛒 بيع"
+                            : "📦 شراء"
+                    }
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>
+                    رقم الفاتورة
+                </span>
+
+                <strong>
+                    ${escapeHtml(
+                        invoice.invoice_number || "-"
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>
+                    العميل / المورد
+                </span>
+
+                <strong>
+                    ${escapeHtml(person)}
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>
+                    التاريخ
+                </span>
+
+                <strong>
+                    ${formatDate(
+                        invoice.created_at
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>
+                    حالة الفاتورة
+                </span>
+
+                <strong>
+                    ${statusBadge(
+                        invoice.invoice_status
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>
+                    حالة الدفع
+                </span>
+
+                <strong>
+                    ${paymentBadge(
+                        invoice.payment_status
+                    )}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>المنتج</th>
+
+                        <th>الباركود</th>
+
+                        <th>الكمية</th>
+
+                        <th>سعر الوحدة</th>
+
+                        <th>الخصم</th>
+
+                        <th>الإجمالي</th>
+
+                        ${profitHeader}
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${
+                        rows ||
+                        `
+                        <tr>
+                            <td
+                                colspan="${
+                                    type === "sales"
+                                    ? 8
+                                    : 7
+                                }"
+                                style="
+                                text-align:center;
+                                padding:25px;">
+                                لا توجد منتجات
+                            </td>
+                        </tr>
+                        `
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="totals">
+
+            <div class="total-row">
+
+                <span>
+                    الإجمالي قبل الخصم والضريبة
+                </span>
+
+                <strong>
+                    ${formatMoney(
+                        invoice.subtotal
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="total-row">
+
+                <span>
+                    الخصم
+                </span>
+
+                <strong>
+                    ${formatMoney(
+                        invoice.discount
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="total-row">
+
+                <span>
+                    الضريبة
+                </span>
+
+                <strong>
+                    ${formatMoney(
+                        invoice.tax
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="total-row total-final">
+
+                <span>
+                    الإجمالي النهائي
+                </span>
+
+                <strong>
+                    ${formatMoney(
+                        invoice.total
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="total-row">
+
+                <span>
+                    المدفوع
+                </span>
+
+                <strong>
+                    ${formatMoney(
+                        invoice.paid_amount
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="total-row">
+
+                <span>
+                    المتبقي
+                </span>
+
+                <strong>
+                    ${formatMoney(
+                        invoice.remaining_amount
+                    )}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        ${
+            invoice.notes
+            ?
+            `
+            <div
+                style="
+                margin-top:15px;
+                padding:15px;
+                background:#f5f6f8;
+                border-radius:10px;">
+
+                <strong>
+                    📝 ملاحظات:
+                </strong>
+
+                ${escapeHtml(
+                    invoice.notes
+                )}
+
+            </div>
+            `
+            :
+            ""
+        }
+
+
+        <div class="modal-actions">
+
+            ${
+                canManageInvoices() &&
+                type === "sales" &&
+                normalizeStatus(
+                    invoice.invoice_status
+                ) !== "cancelled"
+                ?
+                `
+                <button
+                    class="btn btn-cancel"
+                    onclick="
+                    cancelSalesInvoice(
+                        ${invoice.id}
+                    )">
+                    ❌ إلغاء فاتورة البيع
+                </button>
+                `
+                :
+                ""
+            }
+
+
+            ${
+                canManageInvoices() &&
+                type === "purchases" &&
+                normalizeStatus(
+                    invoice.invoice_status
+                ) === "completed"
+                ?
+                `
+                <button
+                    class="btn btn-return"
+                    onclick="
+                    showReturnBox(
+                        ${invoice.id}
+                    )">
+                    ↩️ تسجيل مرتجع شراء
+                </button>
+
+                <div
+                    id="returnBox"
+                    class="return-box">
+
+                    <strong>
+                        تسجيل مرتجع للمورد
+                    </strong>
+
+                    <input
+                        type="number"
+                        id="returnAmount"
+                        min="0.01"
+                        step="0.01"
+                        placeholder="مبلغ المرتجع">
+
+                    <input
+                        type="text"
+                        id="returnNotes"
+                        placeholder="ملاحظات المرتجع">
+
+                    <button
+                        class="btn btn-return"
+                        onclick="
+                        returnPurchase(
+                            ${invoice.id}
+                        )">
+                        تأكيد المرتجع
+                    </button>
+
+                </div>
+                `
+                :
+                ""
+            }
+
+        </div>
+
+    `;
+
+}
+
+
+/* إلغاء فاتورة البيع */
+
+async function cancelSalesInvoice(id){
+
+    if(!canManageInvoices()){
+
+        alert(
+            "ليس لديك صلاحية لإلغاء الفاتورة"
+        );
+
+        return;
+    }
+
+
+    const confirmCancel =
+        confirm(
+            "هل أنت متأكد من إلغاء فاتورة البيع؟\nسيتم تنفيذ الإلغاء من قاعدة البيانات."
+        );
+
+
+    if(!confirmCancel) return;
+
+
+    try{
+
+        const response =
+            await apiFetch(
+                `${API}/sales-invoices/${id}/cancel`,
+                {
+                    method:"POST"
+                }
+            );
+
+
+        if(!response) return;
+
+
+        const data =
+            await response.json();
+
+
+        if(!response.ok){
+
+            throw new Error(
+                data.message ||
+                "فشل إلغاء الفاتورة"
+            );
+
+        }
+
+
+        alert(
+            data.message ||
+            "تم إلغاء الفاتورة بنجاح"
+        );
+
+
+        closeModal();
+
+        await loadInvoices();
+
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            error.message ||
+            "حدث خطأ أثناء إلغاء الفاتورة"
+        );
+
+    }
+
+}
+
+
+/* إظهار صندوق المرتجع */
+
+function showReturnBox(id){
+
+    const box =
+        document.getElementById(
+            "returnBox"
+        );
+
+    if(box){
+
+        box.classList.toggle("show");
+
+        return;
+    }
+
+
+    viewInvoice(
+        "purchases",
+        id
+    );
+
+}
+
+
+/* تسجيل مرتجع شراء */
+
+async function returnPurchase(id){
+
+    if(!canManageInvoices()){
+
+        alert(
+            "ليس لديك صلاحية تسجيل المرتجع"
+        );
+
+        return;
+    }
+
+
+    const amount =
+        Number(
+            document.getElementById(
+                "returnAmount"
+            ).value
+        );
+
+
+    const notes =
+        document.getElementById(
+            "returnNotes"
+        ).value.trim();
+
+
+    if(!amount || amount <= 0){
+
+        alert(
+            "أدخل مبلغ مرتجع صحيح"
+        );
+
+        return;
+    }
+
+
+    const confirmReturn =
+        confirm(
+            `هل تريد تسجيل مرتجع بقيمة ${formatMoney(amount)}؟`
+        );
+
+
+    if(!confirmReturn) return;
+
+
+    try{
+
+        const response =
+            await apiFetch(
+                `${API}/purchase-invoices/${id}/return`,
+                {
+                    method:"POST",
+                    body:JSON.stringify({
+
+                        amount:amount,
+
+                        notes:notes || null
+
+                    })
+                }
+            );
+
+
+        if(!response) return;
+
+
+        const data =
+            await response.json();
+
+
+        if(!response.ok){
+
+            throw new Error(
+                data.message ||
+                "فشل تسجيل المرتجع"
+            );
+
+        }
+
+
+        alert(
+            data.message ||
+            "تم تسجيل المرتجع بنجاح"
+        );
+
+
+        closeModal();
+
+        await loadInvoices();
+
+
+    }catch(error){
+
+        console.error(error);
+
+        alert(
+            error.message ||
+            "حدث خطأ أثناء تسجيل المرتجع"
+        );
+
+    }
+
+}
+
+
+/* الصلاحيات */
+
+function canManageInvoices(){
+
+    return currentUser &&
+        (
+            currentUser.role === "admin" ||
+            currentUser.role === "manager"
+        );
+
+}
+
+
+/* حالة الفاتورة */
+
+function normalizeStatus(status){
+
+    if(!status) return "pending";
+
+    return String(status)
+        .toLowerCase()
+        .trim();
+
+}
+
+
+function statusBadge(status){
+
+    const value =
+        normalizeStatus(status);
+
+
+    let text = "معلقة";
+    let className = "pending";
+
+
+    if(
+        value === "completed" ||
+        value === "complete"
+    ){
+
+        text = "مكتملة";
+        className = "completed";
+
+    }else if(
+        value === "cancelled" ||
+        value === "canceled"
+    ){
+
+        text = "ملغاة";
+        className = "cancelled";
+
+    }
+
+
+    return `
+        <span class="badge ${className}">
+            ${text}
+        </span>
+    `;
+
+}
+
+
+/* الدفع */
+
+function normalizePayment(status){
+
+    if(!status) return "unpaid";
+
+    const value =
+        String(status)
+        .toLowerCase()
+        .trim();
+
+
+    if(
+        value === "paid" ||
+        value === "complete"
+    ){
+
+        return "paid";
+
+    }
+
+    if(
+        value === "partial" ||
+        value === "partially_paid"
+    ){
+
+        return "partial";
+
+    }
+
+
+    return "unpaid";
+
+}
+
+
+function paymentBadge(status){
+
+    const value =
+        normalizePayment(status);
+
+
+    if(value === "paid"){
+
+        return `
+            <span class="badge paid">
+                مدفوعة
+            </span>
+        `;
+
+    }
+
+
+    if(value === "partial"){
+
+        return `
+            <span class="badge partial">
+                جزئي
+            </span>
+        `;
+
+    }
+
+
+    return `
+        <span class="badge unpaid">
+            غير مدفوعة
+        </span>
+    `;
+
+}
+
+
+/* تنسيق الأموال */
+
+function formatMoney(value){
+
+    return Number(value || 0)
+        .toLocaleString(
+            "ar-EG",
+            {
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
+            }
+        ) + " ج.م";
+
+}
+
+
+function formatNumber(value){
+
+    return Number(value || 0)
+        .toLocaleString("ar-EG");
+
+}
+
+
+function formatDate(value){
+
+    if(!value) return "-";
+
+    const date =
+        new Date(value);
+
+
+    return date.toLocaleString(
+        "ar-EG",
+        {
+            dateStyle:"medium",
+            timeStyle:"short"
+        }
+    );
+
+}
+
+
+/* حماية HTML */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* Modal */
+
+function closeModal(){
+
+    document.getElementById(
+        "detailsModal"
+    ).classList.remove("show");
+
+}
+
+
+function closeModalOutside(event){
+
+    if(
+        event.target.id ===
+        "detailsModal"
+    ){
+
+        closeModal();
+
+    }
+
+}
+
+
+/* القائمة */
+
+function toggleMenu(){
+
+    document
+        .getElementById("sidebar")
+        .classList.toggle("open");
+
+}
+
+
+/* الخروج */
+
+function logout(){
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* تشغيل */
+
+loadInvoices();
+
+</script>
+
+</body>
+
+</html>
